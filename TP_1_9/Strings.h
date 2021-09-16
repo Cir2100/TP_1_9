@@ -1,12 +1,7 @@
+#pragma once
 #include <iostream>
 
 const std::string PRINT_BUILDER_STRING = "Вызван конструктор ";
-const std::string PRINT_DECONSTUCTOR_STRING = "Вызван деструктор ";
-
-static void printBuilder(std::string name) {
-	std::cout << PRINT_BUILDER_STRING << name << std::endl;
-}
-
-static void printDeconstuctor(std::string name) {
-	std::cout << PRINT_DECONSTUCTOR_STRING << name << std::endl;
-}
+const std::string PRINT_COPY_BUILDER_STRING = "Вызван конструктор копирования";
+const std::string PRINT_DECONSTRUCTOR_STRING = "Вызван деструктор ";
+const std::string MY_NULL_STRING = "Не указано";

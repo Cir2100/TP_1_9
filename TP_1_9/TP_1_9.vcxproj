@@ -142,18 +142,23 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarsTown.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="MyArray.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="Strings.h" />
     <ClInclude Include="Train.h" />
     <ClInclude Include="Transporter.h" />
+    <ClInclude Include="UsersInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="Strings.h" />
     <ClCompile Include="Train.cpp" />
     <ClCompile Include="Transporter.cpp" />
+    <ClCompile Include="UsersInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="save.txt" />

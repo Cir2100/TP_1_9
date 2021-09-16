@@ -15,6 +15,11 @@ bool checkFilename(std::string file);
 Plane inputPlane();
 Car inputCar();
 Train inputTrain();
+void changePlane(Plane& plane);
+void changeCar(Car& car);
+void changeTrain(Train& train);
+void inputTowns(MyArray<std::string>& towns);
+void inputTowns(MyArray<CarsTown>& towns);
 void inputData(std::string help, std::string& data);
 
 template <typename T>

@@ -17,7 +17,7 @@ public:
 	Car(const Car& car);
 	~Car() { Logger::printDeconstuctor("Car"); };
 
-	virtual void print(std::ostream& out);
+	virtual void print(std::ostream& out, std::string number = "");
 	virtual void input(std::istream& in);
 	Car& operator=(const Car& car);
 
@@ -25,7 +25,7 @@ public:
 	void setMark(std::string _mark) { mark = _mark; }
 
 	std::string getModel() { return model; }
-	void setVodel(std::string _model) { model = _model; }
+	void setModel(std::string _model) { model = _model; }
 
 	int getYearRelease() { return yearRelease; }
 	void setYearRelease(int _yearRelease) { yearRelease = _yearRelease; }

@@ -102,7 +102,6 @@ Plane inputPlane() {
 	std::string type, name;
 	MyArray<std::string> towns;
 	double volumeWeid, width, lengt, height;
-	int countTowns;
 
 	std::cout << "Введите данные о самолете: " << std::endl;
 	inputData("Введите тип: ", type);
@@ -111,19 +110,13 @@ Plane inputPlane() {
 	inputData("Введите длину груза: ", lengt, 0.0, double(INT32_MAX));
 	inputData("Введите ширину груза: ", width, 0.0, double(INT32_MAX));
 	inputData("Введите высоту груза: ", height, 0.0, double(INT32_MAX));
-
-	inputData("Введите количество городов: ", countTowns, 0, INT32_MAX);
-	for (int i = 0; i < countTowns; i++) {
-		std::string townName;
-		inputData("Введите название города " + std::to_string(i + 1) + ": ", townName);
-		towns.add(townName);
-	}
+	inputTowns(towns);
 
 	return Plane(type, name, volumeWeid, width, lengt, height, towns);
 }
 
 Car inputCar() {
-	int yearRelease, countTowns;
+	int yearRelease;
 	std::string mark, model;
 	MyArray<CarsTown> towns;
 
@@ -131,22 +124,13 @@ Car inputCar() {
 	inputData("Введите марку: ", mark);
 	inputData("Введите модель: ", model);
 	inputData("Введите год выпуска: ", yearRelease, 0, INT32_MAX);
-
-	inputData("Введите количество городов: ", countTowns, 0, INT32_MAX);
-	for (int i = 0; i < countTowns; i++) {
-		std::string townName;
-		double volumeWeid, wayHours;
-		inputData("Введите название города " + std::to_string(i + 1) + ": ", townName);
-		inputData("Введите объем груза для города " + std::to_string(i + 1) + ": ", volumeWeid, 0.0, double(INT32_MAX));
-		inputData("Введите время в пути для города " + std::to_string(i + 1) + ": ", wayHours, 0.0, double(INT32_MAX));
-		towns.add(CarsTown(townName, volumeWeid, wayHours));
-	}
-
+	inputTowns(towns);
+	
 	return Car(mark, model, yearRelease, towns);
 }
 
 Train inputTrain() {
-	int yearRelease, countWagons, countTowns;
+	int yearRelease, countWagons;
 	double volumeWeid;
 	std::string name;
 	MyArray<std::string> route;
@@ -156,15 +140,184 @@ Train inputTrain() {
 	inputData("Введите объем груза: ", volumeWeid, 0.0, double(INT32_MAX));
 	inputData("Введите год выпуска: ", yearRelease, 0, INT32_MAX);
 	inputData("Введите количество вагонов: ", countWagons, 0, INT32_MAX);
+	inputTowns(route);
+	return Train(name, volumeWeid, yearRelease, countWagons, route);
+}
 
+void changePlane(Plane& plane) {
+	std::string tmpString = "";
+	MyArray<std::string> tmpStringArray;
+	double tmpDouble = 0.0;
+	bool isExit = false;
+	while (!isExit) {
+
+		std::cout << "1. Изменить тип" << std::endl;
+		std::cout << "2. Изменить наименование" << std::endl;
+		std::cout << "3. Изменить объем перевозимого груза" << std::endl;
+		std::cout << "4. Изменить длину груза" << std::endl;
+		std::cout << "5. Изменить ширину груза" << std::endl;
+		std::cout << "6. Изменить высоту груза" << std::endl;
+		std::cout << "7. Изменить список городов" << std::endl;
+		std::cout << "8. Вывести данные на экран" << std::endl;
+		std::cout << "0. Сохранить изменения" << std::endl;
+		std::cout << "Выберете пункт меню: ";
+
+		int method = processingInput(0, 8);
+		switch (method)
+		{
+		case 1:
+			inputData("Введите тип: ", tmpString);
+			plane.setType(tmpString);
+			break;
+		case 2:
+			inputData("Введите наименование: ", tmpString);
+			plane.setName(tmpString);
+			break;
+		case 3:
+			inputData("Введите объем перевозимого груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			plane.setVolumeWeid(tmpDouble);
+			break;
+		case 4:
+			inputData("Введите длину груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			plane.setLengt(tmpDouble);
+			break;
+		case 5:
+			inputData("Введите ширину груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			plane.setWidth(tmpDouble);
+			break;
+		case 6:
+			inputData("Введите высоту груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			plane.setHeight(tmpDouble);
+			break;
+		case 7:
+			inputTowns(tmpStringArray);
+			plane.setTowns(tmpStringArray);
+			break;
+		case 8:
+			plane.print(std::cout);
+			break;
+		case 0:
+			isExit = true;
+			break;
+		}
+	}
+}
+
+void changeCar(Car& car) {
+	std::string tmpString = "";
+	MyArray<CarsTown> tmpCarTowns;
+	int tmpInt = 0;
+	bool isExit = false;
+	while (!isExit) {
+
+		std::cout << "1. Изменить модель" << std::endl;
+		std::cout << "2. Изменить марку" << std::endl;
+		std::cout << "3. Изменить год выпуска" << std::endl;
+		std::cout << "4. Изменить список городов" << std::endl;
+		std::cout << "5. Вывести данные на экран" << std::endl;
+		std::cout << "0. Сохранить изменения" << std::endl;
+		std::cout << "Выберете пункт меню: ";
+
+		int method = processingInput(0, 4);
+		switch (method)
+		{
+		case 1:
+			inputData("Введите модель: ", tmpString);
+			car.setModel(tmpString);
+			break;
+		case 2:
+			inputData("Введите марку: ", tmpString);
+			car.setMark(tmpString);
+			break;
+		case 3:
+			inputData("Введите год выпуска: ", tmpInt, 0, INT32_MAX);
+			car.setYearRelease(tmpInt);
+			break;
+		case 4:
+			inputTowns(tmpCarTowns);
+			car.setTowns(tmpCarTowns);
+			break;
+		case 5:
+			car.print(std::cout);
+			break;
+		case 0:
+			isExit = true;
+			break;
+		}
+	}
+}
+
+void changeTrain(Train& train) {
+	std::string tmpString = "";
+	MyArray<std::string> tmpStringArray;
+	double tmpDouble = 0.0;
+	int tmpInt = 0;
+	bool isExit = false;
+	while (!isExit) {
+
+		std::cout << "1. Изменить наименование" << std::endl;
+		std::cout << "2. Изменить год выпуска" << std::endl;
+		std::cout << "3. Изменить объем перевозимого груза" << std::endl;
+		std::cout << "4. Изменить количество вагонов" << std::endl;
+		std::cout << "5. Изменить маршрут" << std::endl;
+		std::cout << "6. Вывести данные на экран" << std::endl;
+		std::cout << "0. Сохранить изменения" << std::endl;
+		std::cout << "Выберете пункт меню: ";
+
+		int method = processingInput(0, 6);
+		switch (method)
+		{
+		case 1:
+			inputData("Введите наименование: ", tmpString);
+			train.setName(tmpString);
+			break;
+		case 2:
+			inputData("Введите год выпуска: ", tmpInt, 0, INT32_MAX);
+			train.setYearRelease(tmpInt);
+			break;
+		case 3:
+			inputData("Введите объем перевозимого груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			train.setVolumeWeid(tmpDouble);
+			break;
+		case 4:
+			inputData("Введите количство вагонов: ", tmpInt, 0, INT32_MAX);
+			train.setCountWagons(tmpInt);
+			break;
+		case 5:
+			inputTowns(tmpStringArray);
+			train.setRoute(tmpStringArray);
+			break;
+		case 6:
+			train.print(std::cout);
+			break;
+		case 0:
+			isExit = true;
+			break;
+		}
+	}
+}
+
+void inputTowns(MyArray<std::string>& towns) {
+	int countTowns;
 	inputData("Введите количество городов в маршруте: ", countTowns, 0, INT32_MAX);
 	for (int i = 0; i < countTowns; i++) {
 		std::string townName;
 		inputData("Введите название города " + std::to_string(i + 1) + ": ", townName);
-		route.add(townName);
+		towns.add(townName);
 	}
+}
 
-	return Train(name, volumeWeid, yearRelease, countWagons, route);
+void inputTowns(MyArray<CarsTown>& towns) {
+	int countTowns;
+	inputData("Введите количество городов: ", countTowns, 0, INT32_MAX);
+	for (int i = 0; i < countTowns; i++) {
+		std::string townName;
+		double volumeWeid, wayHours;
+		inputData("Введите название города " + std::to_string(i + 1) + ": ", townName);
+		inputData("Введите объем груза для города " + std::to_string(i + 1) + ": ", volumeWeid, 0.0, double(INT32_MAX));
+		inputData("Введите время в пути для города " + std::to_string(i + 1) + ": ", wayHours, 0.0, double(INT32_MAX));
+		towns.add(CarsTown(townName, volumeWeid, wayHours));
+	}
 }
 
 void inputData(std::string help, std::string& data) {

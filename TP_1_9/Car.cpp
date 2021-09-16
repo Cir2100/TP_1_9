@@ -8,8 +8,8 @@ Car::Car(const Car& car)
 	: mark(car.mark), model(car.model), yearRelease(car.yearRelease), towns(car.towns)
 	{ Logger::printCopyBuilder("Car"); }
 
-void Car::print(std::ostream& out) {
-	out << "Автомобиль" << std::endl;
+void Car::print(std::ostream& out, std::string number) {
+	out << "Автомобиль" << number << ":" << std::endl;
 	out << "Марка = " << mark << std::endl;
 	out << "Модель = " << model << std::endl;
 	out << "Год релиза = " << yearRelease << std::endl;

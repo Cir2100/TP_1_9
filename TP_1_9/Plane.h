@@ -15,7 +15,7 @@ public:
 	Plane(const Plane& plane);
 	~Plane() { Logger::printDeconstuctor("Plane"); }
 
-	virtual void print(std::ostream& out);
+	virtual void print(std::ostream& out, std::string number = "");
 	virtual void input(std::istream& in);
 	Plane& operator=(const Plane& plane);
 

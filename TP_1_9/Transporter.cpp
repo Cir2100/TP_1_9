@@ -8,23 +8,49 @@ Transporter::Transporter(const Transporter& transporter) :
 	planes(transporter.planes), cars(transporter.cars), trains(transporter.trains)
 	{ Logger::printCopyBuilder("Transporter"); }
 
-void Transporter::addBase(Plane& plane) { planes.add(plane); }
-void Transporter::addBase(Car& car) { cars.add(car); }
-void Transporter::addBase(Train& train) { trains.add(train); }
+void Transporter::addObject(Plane& plane) { planes.add(plane); }
+void Transporter::addObject(Car& car) { cars.add(car); }
+void Transporter::addObject(Train& train) { trains.add(train); }
+
+void Transporter::changeObject(Plane& plane, int index) { planes[index] = plane; }
+void Transporter::changeObject(Car& car, int index) { cars[index] = car; }
+void Transporter::changeObject(Train& train, int index) { trains[index] = train; }
+
+void Transporter::deletePlane(int index) { planes.del(index); }
+void Transporter::deleteCar(int index) { cars.del(index); }
+void Transporter::deleteTrain(int index) { trains.del(index); }
 
 void Transporter::print(std::ostream& out) {
 
 	if (planes.getSize() > 0 || cars.getSize() > 0 || trains.getSize() > 0) {
 		out << "Ñïèñîê îáúåêòîâ:" << std::endl;
-		for (int i = 0; i < planes.getSize(); i++)
-			planes[i].print(out);
+		/*for (int i = 0; i < planes.getSize(); i++)
+			planes[i].print(out, " " + std::to_string(i + 1));
 		for (int i = 0; i < cars.getSize(); i++)
-			cars[i].print(out);
-		for (int i = 0; i < trains.getSize(); i++)
-			trains[i].print(out);
+			cars[i].print(out, " " + std::to_string(i + 1));
+		for (int i = 0; i < cars.getSize(); i++)
+			cars[i].print(out, " " + std::to_string(i + 1));*/
+		printPlanes(out);
+		printCars(out);
+		printTrains(out);
 	}
 	else
 		out << "Ó ãğóçîïåğåâîç÷èêà íåò îáúåêòîâ" << std::endl;
+}
+
+void Transporter::printPlanes(std::ostream& out) {
+	for (int i = 0; i < planes.getSize(); i++)
+		planes[i].print(out, " " + std::to_string(i + 1));
+}
+
+void Transporter::printCars(std::ostream& out) {
+	for (int i = 0; i < cars.getSize(); i++)
+		cars[i].print(out, " " + std::to_string(i + 1));
+}
+
+void Transporter::printTrains(std::ostream& out) {
+	for (int i = 0; i < trains.getSize(); i++)
+		trains[i].print(out, " " + std::to_string(i + 1));
 }
 
 Transporter& Transporter::operator=(const Transporter& transporter)

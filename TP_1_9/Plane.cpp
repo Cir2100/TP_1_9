@@ -11,8 +11,8 @@ Plane::Plane(const Plane& plane) :
 	lengt(plane.lengt), height(plane.height), towns(plane.towns)
 	{ Logger::printCopyBuilder("Plane"); }
 
-void Plane::print(std::ostream& out) {
-	out << "Самолет" << std::endl;
+void Plane::print(std::ostream& out, std::string number) {
+	out << "Самолет" << number << ":" << std::endl;
 	out << "Тип = " << type << std::endl;
 	out << "Наименование = " << name << std::endl;
 	out << "Объем груза = " << volumeWeid << std::endl;

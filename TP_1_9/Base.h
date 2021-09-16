@@ -11,7 +11,7 @@ public:
 	Base(const Base& base) { Logger::printCopyBuilder("Base"); };
 	~Base() { Logger::printDeconstuctor("Base"); };
 
-	virtual void print(std::ostream& out) = 0;
+	virtual void print(std::ostream& out, std::string number) = 0;
 	virtual void input(std::istream& in) = 0;
 	//virtual Base& operator=(const Base& base) = 0;
 };

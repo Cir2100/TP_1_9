@@ -10,8 +10,8 @@ Train::Train(const Train& train)
 	countWagons(train.countWagons), route(train.route)
 	{ Logger::printCopyBuilder("Train"); }
 
-void Train::print(std::ostream& out) {
-	out << "Поезд" << std::endl;
+void Train::print(std::ostream& out, std::string number) {
+	out << "Поезд" << number << ":" << std::endl;
 	out << "Наименование = " << name << std::endl;
 	out << "Объем груза = " << volumeWeid << std::endl;
 	out << "Год релиза = " << yearRelease << std::endl;

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 template <class T>
 class MyArray
@@ -32,10 +33,8 @@ MyArray<T>::MyArray(const MyArray<T>& myArray) {
 template <class T>
 T& MyArray<T>::operator[](int index)
 {
-	std::string err = "Index ";// +index;
-	err += " does not exist";
 	if (index < 0 || index >= size)
-		throw err;
+		throw "Index " + std::to_string(index) + "does not exist";
 	return data[index];
 }
 
@@ -66,10 +65,8 @@ void MyArray<T>::add(const T& obj)
 template <class T>
 void MyArray<T>::del(int index)
 {
-	std::string err = "Index ";;// +index;
-	err += " does not exist";
 	if (index < 0 || index >= size)
-		throw err;
+		throw "Index " + std::to_string(index) + "does not exist";
 	if (size > 1) {
 		T* tmp = new T[size - 1];
 		int k = 0;

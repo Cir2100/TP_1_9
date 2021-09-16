@@ -25,7 +25,6 @@ void Transporter::print(std::ostream& out) {
 	}
 	else
 		out << "У грузоперевозчика нет объектов" << std::endl;
-	out << std::endl;
 }
 
 Transporter& Transporter::operator=(const Transporter& transporter)

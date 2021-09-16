@@ -7,7 +7,6 @@ class Car :
 {
 
 private:
-
 	int yearRelease;
 	std::string mark, model;
 	MyArray<CarsTown> towns;

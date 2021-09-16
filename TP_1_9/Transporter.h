@@ -1,9 +1,7 @@
 #pragma once
-#include "Base.h"
 #include "Plane.h"
 #include "Car.h"
 #include "Train.h"
-#include "Strings.h"
 #include "MyArray.h"
 #include <iostream>
 

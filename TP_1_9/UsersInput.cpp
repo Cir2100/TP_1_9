@@ -1,46 +1,24 @@
 #include "UsersInput.h"
 
-int processingInputI(int minInput, int maxInput)
-{
-	while (true)
-	{
-		int type;
-		std::cin >> type;
-		if (std::cin.fail() || type < minInput || type > maxInput)
-		{
-			std::cin.clear();
-			std::cout << "¬ведено неверное число.\n¬ведите повторно: ";
-		}
-		else
-		{
-			return type;
-		}
-		std::cin.ignore(32767, '\n');
-	}
+
+int chouseStream() {
+	std::cout << "1. ‘айл" << std::endl;
+	std::cout << "2.  онсоль" << std::endl;
+	std::cout << "0. ќтмена" << std::endl;
+	return processingInput(0, 2);
 }
 
-double processingInputD(double minInput, double maxInput)
-{
-	while (true)
-	{
-		double type;
-		std::cin >> type;
-		if (std::cin.fail() || type < minInput || type > maxInput)
-		{
-			std::cin.clear();
-			std::cout << "¬ведено неверное число.\n¬ведите повторно: ";
-		}
-		else
-		{
-			return type;
-		}
-		std::cin.ignore(32767, '\n');
-	}
+int chouseObject() {
+	std::cout << "1. —амолет" << std::endl;
+	std::cout << "2. јвтомобиль" << std::endl;
+	std::cout << "3. ѕоезд" << std::endl;
+	std::cout << "0. ќтмена" << std::endl;
+	return processingInput(0, 3);
 }
 
 //получение имени входного файлa
 //ввод 0 означает отказ от ввода данных из файла.
-void ProcessInputNameOfInputFile(std::ifstream& input)
+bool processInputNameOfInputFile(std::ifstream& file)
 {
 	//получение названи€ файла
 	std::string filename;
@@ -49,8 +27,8 @@ void ProcessInputNameOfInputFile(std::ifstream& input)
 	std::cin >> filename;
 	isCorrect = checkFilename(filename);
 	if (isCorrect)
-		input.open(filename);
-	while (!input.is_open() && filename[0] != '0')
+		file.open(filename);
+	while (!file.is_open() && filename[0] != '0')
 	{
 		if (isCorrect)
 			std::cout << "“акого файла не существует." << std::endl;
@@ -58,12 +36,33 @@ void ProcessInputNameOfInputFile(std::ifstream& input)
 		std::cin >> filename;
 		isCorrect = checkFilename(filename);
 		if (isCorrect)
-			input.open(filename);
+			file.open(filename);
 	}
-	if (filename[0] != '0')
+	if (filename[0] != '0') {
 		std::cout << "‘айл успешно открыт" << std::endl;
-	else
+		return true;
+	}
+	else {
 		std::cout << "¬ы отказались от ввода данных из файла" << std::endl;
+		return false;
+	}
+		
+}
+//получение имени выходного файлa
+//ввод 0 означает отказ от ввода данных из файла.
+std::string processInputNameOfOutputFile()
+{
+	//получение названи€ файла
+	std::string filename;
+	bool isCorrect;
+	std::cout << "¬ведите название файла (с расширением): ";
+	std::cin >> filename;
+	isCorrect = checkFilename(filename);
+	while (!isCorrect) {
+		std::cin >> filename;
+		isCorrect = checkFilename(filename);
+	}
+	return filename;
 }
 //проверка корректности имени файла
 bool checkFilename(std::string file)
@@ -97,4 +96,78 @@ bool checkFilename(std::string file)
 			std::cout << "‘айл должен иметь формат .txt" << std::endl;
 		return false;
 	}
+}
+
+Plane inputPlane() {
+	std::string type, name;
+	MyArray<std::string> towns;
+	double volumeWeid, width, lengt, height;
+	int countTowns;
+
+	std::cout << "¬ведите данные о самолете: " << std::endl;
+	inputData("¬ведите тип: ", type);
+	inputData("¬ведите наименование: ", name);
+	inputData("¬ведите объем груза: ", volumeWeid, 0.0, double(INT32_MAX));
+	inputData("¬ведите длину груза: ", lengt, 0.0, double(INT32_MAX));
+	inputData("¬ведите ширину груза: ", width, 0.0, double(INT32_MAX));
+	inputData("¬ведите высоту груза: ", height, 0.0, double(INT32_MAX));
+
+	inputData("¬ведите количество городов: ", countTowns, 0, INT32_MAX);
+	for (int i = 0; i < countTowns; i++) {
+		std::string townName;
+		inputData("¬ведите название города " + std::to_string(i + 1) + ": ", townName);
+		towns.add(townName);
+	}
+
+	return Plane(type, name, volumeWeid, width, lengt, height, towns);
+}
+
+Car inputCar() {
+	int yearRelease, countTowns;
+	std::string mark, model;
+	MyArray<CarsTown> towns;
+
+	std::cout << "¬ведите данные об автомобиле: " << std::endl;
+	inputData("¬ведите марку: ", mark);
+	inputData("¬ведите модель: ", model);
+	inputData("¬ведите год выпуска: ", yearRelease, 0, INT32_MAX);
+
+	inputData("¬ведите количество городов: ", countTowns, 0, INT32_MAX);
+	for (int i = 0; i < countTowns; i++) {
+		std::string townName;
+		double volumeWeid, wayHours;
+		inputData("¬ведите название города " + std::to_string(i + 1) + ": ", townName);
+		inputData("¬ведите объем груза дл€ города " + std::to_string(i + 1) + ": ", volumeWeid, 0.0, double(INT32_MAX));
+		inputData("¬ведите врем€ в пути дл€ города " + std::to_string(i + 1) + ": ", wayHours, 0.0, double(INT32_MAX));
+		towns.add(CarsTown(townName, volumeWeid, wayHours));
+	}
+
+	return Car(mark, model, yearRelease, towns);
+}
+
+Train inputTrain() {
+	int yearRelease, countWagons, countTowns;
+	double volumeWeid;
+	std::string name;
+	MyArray<std::string> route;
+
+	std::cout << "¬ведите данные о поезде: " << std::endl;
+	inputData("¬ведите наименование: ", name);
+	inputData("¬ведите объем груза: ", volumeWeid, 0.0, double(INT32_MAX));
+	inputData("¬ведите год выпуска: ", yearRelease, 0, INT32_MAX);
+	inputData("¬ведите количество вагонов: ", countWagons, 0, INT32_MAX);
+
+	inputData("¬ведите количество городов в маршруте: ", countTowns, 0, INT32_MAX);
+	for (int i = 0; i < countTowns; i++) {
+		std::string townName;
+		inputData("¬ведите название города " + std::to_string(i + 1) + ": ", townName);
+		route.add(townName);
+	}
+
+	return Train(name, volumeWeid, yearRelease, countWagons, route);
+}
+
+void inputData(std::string help, std::string& data) {
+	std::cout << help;
+	getline(std::cin, data);
 }

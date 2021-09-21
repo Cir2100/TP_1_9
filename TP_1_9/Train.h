@@ -15,7 +15,6 @@ public:
 	~Train() { Logger::printDeconstuctor("Train"); }
 
 	virtual void print(std::ostream& out, std::string number = "");
-	virtual void input(std::istream& in);
 	Train& operator=(const Train& train);
 
 	int getYearRelease() { return yearRelease; }

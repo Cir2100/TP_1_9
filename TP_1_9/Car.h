@@ -18,7 +18,6 @@ public:
 	~Car() { Logger::printDeconstuctor("Car"); };
 
 	virtual void print(std::ostream& out, std::string number = "");
-	virtual void input(std::istream& in);
 	Car& operator=(const Car& car);
 
 	std::string getMark() { return mark; }

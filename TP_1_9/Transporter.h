@@ -27,13 +27,13 @@ public:
 	void changeObject(Train& train, int index);
 
 	void deletePlane(int index);
+	void deleteCar(int index);
 	void deleteTrain(int index);
 
 	void print(std::ostream& out);
 	void printPlanes(std::ostream& out);
 	void printCars(std::ostream& out);
 	void printTrains(std::ostream& out);
-	//virtual void input(std::istream& in);
 	Transporter& operator=(const Transporter& transporter);
 
 	MyArray<Plane> getPlanes() { return planes; }

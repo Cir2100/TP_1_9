@@ -1,6 +1,5 @@
 #include "Logger.h"
 
-
 std::string Logger::builder_string = PRINT_BUILDER_STRING;
 std::string Logger::copy_builder_string = PRINT_COPY_BUILDER_STRING;
 std::string Logger::deconstructor_string = PRINT_DECONSTRUCTOR_STRING;

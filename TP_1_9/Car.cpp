@@ -16,20 +16,15 @@ void Car::print(std::ostream& out, std::string number) {
 	if (towns.getSize() > 0) {
 		out << "Список городов:" << std::endl;
 		for (int i = 0; i < towns.getSize(); i++) {
-			out << "  " << towns[i].name << ":" << std::endl;
-			out << "    Время в пути = " << towns[i].wayHours << std::endl;
-			out << "    Объем груза = " << towns[i].volumeWeid << std::endl;
+			out << "Название города " << i + 1 << " = " << towns[i].name << std::endl;
+			out << "  Время в пути для города " << i + 1 << " = " << towns[i].wayHours << std::endl;
+			out << "  Объем груза для города " << i + 1 << " = " << towns[i].volumeWeid << std::endl;
 		}	
 	}
 	else
 		out << "Список городов не указан" << std::endl;
 
 	out << std::endl;
-}
-
-void Car::input(std::istream& in) {
-	//in >> volumeWeid;
-	//in >> type;
 }
 
 Car& Car::operator=(const Car& car)

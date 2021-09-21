@@ -16,21 +16,18 @@ void Plane::print(std::ostream& out, std::string number) {
 	out << "Тип = " << type << std::endl;
 	out << "Наименование = " << name << std::endl;
 	out << "Объем груза = " << volumeWeid << std::endl;
-	out << "Габариты  (" << lengt << ";" << width << ";" << height << ")" << std::endl;
+	out << "Максимальная длина груза = " << lengt << std::endl;
+	out << "Максимальная ширина груза = "  << width << std::endl;
+	out << "Максимальная высота груза = "  << height << std::endl;
 	if (towns.getSize() > 0) {
 		out << "Список городов:" << std::endl;
 		for (int i = 0; i < towns.getSize(); i++)
-			out << "  " << towns[i] << std::endl;
+			out << "Название города " << i + 1 << " = " << towns[i] << std::endl;
 	}
 	else
 		out << "Список городов не указан" << std::endl;
 	
 	out << std::endl;
-}
-
-void Plane::input(std::istream& in) {
-	//in >> volumeWeid;
-	//in >> type;
 }
 
 Plane& Plane::operator=(const Plane& plane)

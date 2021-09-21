@@ -142,6 +142,7 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarsTown.h" />
+    <ClInclude Include="FileInput.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MyArray.h" />
     <ClInclude Include="Plane.h" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="FileInput.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Plane.cpp" />
@@ -162,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="save.txt" />
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,9 @@
 #include "Transporter.h"
 #include "UsersInput.h"
+#include "FileInput.h"
 #include <iostream>
 #include <fstream>
+#include <typeinfo>
 
 using namespace std;
 
@@ -25,7 +27,6 @@ int main() {
 	bool isExit = false;
 	while (!isExit) {
 		printMenu();
-
 		int method = processingInput(0, 5);
 		switch (method)
 		{
@@ -192,7 +193,36 @@ void startInput(Transporter& transporter) {
 }
 
 void inputFromFile(Transporter& transporter, ifstream& file) {
-	
+	string tmpString;
+	int countLines = 0, countLinesPrevInput = 0;
+	bool isInput = false;
+	while (true) {
+		if (!isInput) {
+			if (getline(file, tmpString))
+				countLines++;
+			else
+				break;
+		}
+			
+		if (contains(tmpString, "Самолет")) {
+			countLinesPrevInput = countLines;
+			isInput = true;
+			Plane plane = inputPlaneFromFile(file, tmpString, countLinesPrevInput);
+			transporter.addObject(plane);
+		} else if (contains(tmpString, "Автомобиль")) {
+			countLinesPrevInput = countLines;
+			isInput = true;
+			Car car = inputCarFromFile(file, tmpString, countLinesPrevInput);
+			transporter.addObject(car);
+		} else if (contains(tmpString, "Поезд")) {
+			countLinesPrevInput = countLines;
+			isInput = true;
+			Train train = inputTrainFromFile(file, tmpString, countLinesPrevInput);
+			transporter.addObject(train);
+		}
+		else
+			isInput = false;
+	}
 }
 
 void inputFromConsole(Transporter& transporter) {

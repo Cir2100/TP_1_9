@@ -19,17 +19,12 @@ void Train::print(std::ostream& out, std::string number) {
 	if (route.getSize() > 0) {
 		out << "Маршрут поезда:" << std::endl;
 		for (int i = 0; i < route.getSize(); i++)
-			out << "  " << route[i] << std::endl;
+			out << "Название города " << i + 1 << " = " << route[i] << std::endl;
 	}
 	else
 		out << "Маршрут не указан" << std::endl;
 		
 	out << std::endl;
-}
-
-void Train::input(std::istream& in) {
-	//in >> volumeWeid;
-	//in >> type;
 }
 
 Train& Train::operator=(const Train& train)

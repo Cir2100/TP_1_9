@@ -30,8 +30,9 @@ bool processInputNameOfInputFile(std::ifstream& file)
 		file.open(filename);
 	while (!file.is_open() && filename[0] != '0')
 	{
+		
 		if (isCorrect)
-			std::cout << "Такого файла не существует." << std::endl;
+			Logger::printWarning("Такого файла не существует.");
 		std::cout << "Введите название повторно (с расширением): ";
 		std::cin >> filename;
 		isCorrect = checkFilename(filename);
@@ -39,11 +40,11 @@ bool processInputNameOfInputFile(std::ifstream& file)
 			file.open(filename);
 	}
 	if (filename[0] != '0') {
-		std::cout << "Файл успешно открыт" << std::endl;
+		Logger::printMessage("Файл успешно открыт");
 		return true;
 	}
 	else {
-		std::cout << "Вы отказались от ввода данных из файла" << std::endl;
+		Logger::printMessage("Вы отказались от ввода данных из файла");
 		return false;
 	}
 		
@@ -67,6 +68,10 @@ std::string processInputNameOfOutputFile()
 //проверка корректности имени файла
 bool checkFilename(std::string file)
 {
+	if (file.size() < 4) {
+		Logger::printWarning("Имя файла слишком короткое.");
+		return false;
+	}
 	if ((((file[0] == 'c') || (file[0] == 'C')) && ((file[1] == 'o') || (file[1] == 'O'))
 		&& ((file[2] == 'n') || (file[2] == 'N')) && ((file[3] == '.') || (file[3] == '\0')))
 		|| (((file[0] == 'a') || (file[0] == 'A')) && ((file[1] == 'u') || (file[1] == 'U'))
@@ -84,7 +89,7 @@ bool checkFilename(std::string file)
 						&& ((file[4] == '.') || (file[4] == '\0'))))
 	{
 		std::cin.ignore(INT_MAX, '\n');
-		std::cout << "Данное имя файла используется Windows." << std::endl;
+		Logger::printWarning("Данное имя файла используется Windows.");
 		return false;
 	}
 	int i = file.size();
@@ -93,7 +98,7 @@ bool checkFilename(std::string file)
 	else
 	{
 		if (file[i - 1] != '0')
-			std::cout << "Файл должен иметь формат .txt" << std::endl;
+			Logger::printWarning("Файл должен иметь формат .txt");
 		return false;
 	}
 }

@@ -1,7 +1,7 @@
 #include "Car.h"
 
 Car::Car(std::string _mark, std::string _model, int _yearRelease, MyArray<CarsTown> _towns)
-	: mark(_mark), model(_model), yearRelease(_yearRelease), towns(_towns)
+	: Base(CAR_STRING), mark(_mark), model(_model), yearRelease(_yearRelease), towns(_towns)
 	{ Logger::printBuilder("Car"); }
 
 Car::Car(const Car& car)
@@ -18,8 +18,6 @@ void Car::inputFromConsole() {
 
 void Car::inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines) {
 
-	MyArray<std::string> unrecognizedStrings;
-
 	bool isInputYearRelease = false, isInputMark = false, isInputModel = false, isInputTowns = false;
 
 	while (true) {
@@ -30,7 +28,7 @@ void Car::inputFromFile(std::ifstream& file, std::string& tmpString, int& countL
 				inputField(tmpString, YEAR_RELISE_STRING, yearRelease, isInputYearRelease, isInput);
 				inputField(tmpString, MARK_STRING, mark, isInputMark, isInput);
 				inputField(tmpString, MODEL_STRING, model, isInputModel, isInput);
-				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, unrecognizedStrings, isInput);
+				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, isInput);
 			}
 			catch (int resultCode) {
 				if (resultCode == -1) {
@@ -53,8 +51,10 @@ void Car::inputFromFile(std::ifstream& file, std::string& tmpString, int& countL
 			if ((isInputYearRelease && isInputMark && isInputModel && isInputTowns) ||
 				contains(tmpString, PLANE_STRING) || contains(tmpString, TRAIN_STRING))
 				break;
-			if (!isInput)
+			if (!isInput) {
+				Logger::printWarning("Данные в строке " + std::to_string(countLines) + " не распознаны");
 				unrecognizedStrings.add(tmpString);
+			}		
 		}
 		else
 			break;
@@ -63,7 +63,7 @@ void Car::inputFromFile(std::ifstream& file, std::string& tmpString, int& countL
 }
 
 void Car::print(std::ostream& out, std::string number) {
-	out << CAR_STRING << number << ":" << std::endl;
+	Base::print(out, number);
 	out << MARK_STRING << " = " << mark << std::endl;
 	out << MODEL_STRING << " = " << model << std::endl;
 	out << YEAR_RELISE_STRING << " = " << yearRelease << std::endl;
@@ -74,7 +74,7 @@ void Car::print(std::ostream& out, std::string number) {
 	}
 	else
 		out << EMPTY_TOWN_LIST_STRING << std::endl;
-
+	Base::printUnrecognizedStrings(out);
 	out << std::endl;
 }
 
@@ -89,10 +89,11 @@ void Car::change() {
 		std::cout << "3. Изменить год выпуска" << std::endl;
 		std::cout << "4. Изменить список городов" << std::endl;
 		std::cout << "5. Вывести данные на экран" << std::endl;
+		std::cout << "6. Удалить нераспознаныне строки" << std::endl;
 		std::cout << "0. Сохранить изменения" << std::endl;
 		std::cout << "Выберете пункт меню: ";
 
-		int method = processingInput(0, 4);
+		int method = processingInput(0, 6);
 		switch (method)
 		{
 		case 1:
@@ -114,6 +115,9 @@ void Car::change() {
 		case 5:
 			print(std::cout);
 			break;
+		case 6:
+			unrecognizedStrings.clear();
+			break;
 		case 0:
 			isExit = true;
 			break;
@@ -129,6 +133,7 @@ Car& Car::operator=(const Car& car)
 	mark = car.mark;
 	model = car.model;
 	towns = car.towns;
+	unrecognizedStrings = car.unrecognizedStrings;
 	return *this;
 }
 
@@ -143,7 +148,7 @@ void Car::inputTownsFromConsole() {
 }
 
 void Car::inputTownsFromFile(std::string& input, const std::string& nameField,
-	bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput) {
+	bool& isInputField, std::ifstream& file, int& countLines, bool& isInput) {
 	if (contains(input, nameField) && !isInputField) {
 		isInputField = true;
 		isInput = true;

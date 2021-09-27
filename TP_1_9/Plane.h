@@ -11,7 +11,7 @@ private:
 
 	void inputTownsFromConsole();
 	void inputTownsFromFile(std::string& input, const std::string& nameField,
-		bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
+		bool& isInputField, std::ifstream& file, int& countLines, bool& isInput);
 public:
 
 	Plane(std::string _type = MY_NULL_STRING, std::string _name = MY_NULL_STRING, double _volumeWeid = 0.0, double _width = 0.0,

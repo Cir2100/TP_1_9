@@ -32,7 +32,7 @@ void CarsTown::inputFromFile(std::string& input, std::ifstream& file, int& count
 				}
 				catch (int resultCode) {
 					if (resultCode == -1)
-						Logger::printWarning("ƒанные в строке " + std::to_string(countLines) + " данные не могут быть считаны");
+						Logger::printWarning("ƒанные в строке " + std::to_string(countLines) + " не могут быть считаны");
 				}
 				if (isInputName && isInputWayHours && isInputVolumeWeid)
 					break;

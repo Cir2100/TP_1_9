@@ -13,7 +13,7 @@ private:
 
 	void inputTownsFromConsole();
 	void inputTownsFromFile(std::string& input, const std::string& nameField,
-		bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
+		bool& isInputField, std::ifstream& file, int& countLines, bool& isInput);
 public:
 	Car(std::string _mark = MY_NULL_STRING, std::string _model = MY_NULL_STRING, 
 		int _yearRelease = 0.0, MyArray<CarsTown> _towns = MyArray<CarsTown>());

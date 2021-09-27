@@ -26,7 +26,8 @@ T processingInput(T minInput, T maxInput) {
 		if (std::cin.fail() || method < minInput || method > maxInput)
 		{
 			std::cin.clear();
-			std::cout << "Введено неверное число.\nВведите повторно: ";
+			Logger::printWarning("Неверный ввод.");
+			std::cout << "Введите повторно: ";
 		}
 		else
 		{

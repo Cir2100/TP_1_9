@@ -86,12 +86,6 @@ void Transporter::print(std::ostream& out) {
 
 	if (planes.getSize() > 0 || cars.getSize() > 0 || trains.getSize() > 0) {
 		out << "Ñïèñîê îáúåêòîâ:" << std::endl;
-		/*for (int i = 0; i < planes.getSize(); i++)
-			planes[i].print(out, " " + std::to_string(i + 1));
-		for (int i = 0; i < cars.getSize(); i++)
-			cars[i].print(out, " " + std::to_string(i + 1));
-		for (int i = 0; i < cars.getSize(); i++)
-			cars[i].print(out, " " + std::to_string(i + 1));*/
 		printPlanes(out);
 		printCars(out);
 		printTrains(out);

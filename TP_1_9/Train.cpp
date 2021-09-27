@@ -1,7 +1,7 @@
 #include "Train.h"
 
 Train::Train(std::string _name, double _volumeWeid, int _yearRelease, int _countWagons, MyArray<std::string> _towns)
-	: name(_name), volumeWeid(_volumeWeid), yearRelease(_yearRelease),
+	: Base(TRAIN_STRING), name(_name), volumeWeid(_volumeWeid), yearRelease(_yearRelease),
 	countWagons(_countWagons), towns(_towns)
 	{ Logger::printBuilder("Train"); }
 
@@ -35,7 +35,7 @@ void Train::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 				inputField(tmpString, COUNT_WAGONS_STRING, countWagons, isInputCountWagons, isInput);
 				inputField(tmpString, VOLUME_WEID_STRING, volumeWeid, isInputVolumeWeid, isInput);
 				inputField(tmpString, NAME_STRING, name, isInputName, isInput);
-				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, unrecognizedStrings, isInput);
+				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, isInput);
 			}
 			catch (int resultCode) {
 				if (resultCode == -1) {
@@ -58,8 +58,10 @@ void Train::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 			if ((isInputYearRelease && isInputCountWagons && isInputVolumeWeid && isInputName && isInputTowns) ||
 				contains(tmpString, CAR_STRING) || contains(tmpString, PLANE_STRING))
 				break;
-			if (!isInput)
+			if (!isInput) {
+				Logger::printWarning("Данные в строке " + std::to_string(countLines) + " не распознаны");
 				unrecognizedStrings.add(tmpString);
+			}
 		}
 		else
 			break;
@@ -69,7 +71,7 @@ void Train::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 }
 
 void Train::print(std::ostream& out, std::string number) {
-	out << TRAIN_STRING << number << ":" << std::endl;
+	Base::print(out, number);
 	out << NAME_STRING << " = " << name << std::endl;
 	out << VOLUME_WEID_STRING << " = " << volumeWeid << std::endl;
 	out << YEAR_RELISE_STRING << " = " << yearRelease << std::endl;
@@ -81,7 +83,7 @@ void Train::print(std::ostream& out, std::string number) {
 	}
 	else
 		out << EMPTY_TOWN_LIST_STRING << std::endl;
-		
+	Base::printUnrecognizedStrings(out);
 	out << std::endl;
 }
 
@@ -98,10 +100,11 @@ void Train::change() {
 		std::cout << "4. Изменить количество вагонов" << std::endl;
 		std::cout << "5. Изменить маршрут" << std::endl;
 		std::cout << "6. Вывести данные на экран" << std::endl;
+		std::cout << "7. Удалить нераспознаныне строки" << std::endl;
 		std::cout << "0. Сохранить изменения" << std::endl;
 		std::cout << "Выберете пункт меню: ";
 
-		int method = processingInput(0, 6);
+		int method = processingInput(0, 7);
 		switch (method)
 		{
 		case 1:
@@ -127,6 +130,9 @@ void Train::change() {
 		case 6:
 			print(std::cout);
 			break;
+		case 7:
+			unrecognizedStrings.clear();
+			break;
 		case 0:
 			isExit = true;
 			break;
@@ -143,6 +149,7 @@ Train& Train::operator=(const Train& train)
 	yearRelease = train.yearRelease;
 	countWagons = train.countWagons;
 	towns = train.towns;
+	unrecognizedStrings = train.unrecognizedStrings;
 	return *this;
 }
 
@@ -157,7 +164,7 @@ void Train::inputTownsFromConsole() {
 }
 
 void Train::inputTownsFromFile(std::string& input, const std::string& nameField,
-	bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput) {
+	bool& isInputField, std::ifstream& file, int& countLines, bool& isInput) {
 	if (contains(input, nameField) && !isInputField) {
 		isInputField = true;
 		isInput = true;

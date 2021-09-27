@@ -11,7 +11,7 @@ private:
 
 	void inputTownsFromConsole();
 	void inputTownsFromFile(std::string& input, const std::string& nameField,
-		bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
+		bool& isInputField, std::ifstream& file, int& countLines, bool& isInput);
 public:
 	Train(std::string _name = MY_NULL_STRING, double _volumeWeid = 0.0, int _yearRelease = 0, int _countWagons = 0,
 		MyArray<std::string> _towns = MyArray<std::string>());

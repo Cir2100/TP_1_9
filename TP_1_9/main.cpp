@@ -95,9 +95,8 @@ void changeObject(Transporter& transporter) {
 			plane.change();
 			transporter.changeObject(plane, index);
 		}
-		else {
-			cout << "Список самолетов пуст. Нечего изменять" << endl;
-		}
+		else
+			Logger::printWarning("Список самолетов пуст. Нечего изменять");
 		break;
 	case 2:
 		if (transporter.getCountCars() > 0) {
@@ -108,9 +107,8 @@ void changeObject(Transporter& transporter) {
 			car.change();
 			transporter.changeObject(car, index);
 		}
-		else {
-			cout << "Список автомобилей пуст. Нечего изменять" << endl;
-		}
+		else
+			Logger::printWarning("Список автомобилей пуст. Нечего изменять");
 		break;
 	case 3:
 		if (transporter.getCountTrains() > 0) {
@@ -121,9 +119,8 @@ void changeObject(Transporter& transporter) {
 			train.change();
 			transporter.changeObject(train, index);
 		}
-		else {
-			cout << "Список поездов пуст. Нечего изменять" << endl;
-		}
+		else
+			Logger::printWarning("Список поездов пуст. Нечего изменять");
 		break;
 	}
 }
@@ -140,9 +137,8 @@ void deleteObject(Transporter& transporter) {
 			cout << "Введите номер самолета для удаления: ";
 			transporter.deletePlane(processingInput(1, transporter.getCountPlanes()) - 1);
 		}
-		else {
-			cout << "Список самолетов пуст. Нечего удалять" << endl;
-		}
+		else
+			Logger::printWarning("Список самолетов пуст. Нечего удалять");
 		break;
 	case 2:
 		if (transporter.getCountCars() > 0) {
@@ -150,9 +146,8 @@ void deleteObject(Transporter& transporter) {
 			cout << "Введите номер автомобиля для удаления: ";
 			transporter.deleteCar(processingInput(1, transporter.getCountCars()) - 1);
 		}
-		else {
-			cout << "Список автомобилей пуст. Нечего удалять" << endl;
-		}
+		else
+			Logger::printWarning("Список автомобилей пуст. Нечего удалять");
 		break;
 	case 3:
 		if (transporter.getCountTrains() > 0) {
@@ -160,9 +155,8 @@ void deleteObject(Transporter& transporter) {
 			cout << "Введите номер поезда для удаления: ";
 			transporter.deleteTrain(processingInput(1, transporter.getCountTrains()) - 1);
 		}
-		else {
-			cout << "Список поездов пуст. Нечего удалять" << endl;
-		}
+		else
+			Logger::printWarning("Список поездов пуст. Нечего удалять");
 		break;
 	}
 }

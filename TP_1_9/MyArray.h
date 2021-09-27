@@ -9,7 +9,7 @@ private:
 	T* data;
 	
 public:
-	MyArray() : size(0), data(NULL) { /*printBuilder("MyArray");*/ }
+	MyArray() : size(0), data(nullptr) { /*printBuilder("MyArray");*/ }
 	MyArray(const MyArray<T>& myArray);
 	~MyArray() { clear(); /*printDeconstuctor("MyArray");*/ }
 
@@ -87,6 +87,7 @@ void MyArray<T>::del(int index)
 
 template <class T>
 void MyArray<T>::clear() {
-	delete[] data; 
+	delete[] data;
+	data = nullptr;
 	size = 0;
 }

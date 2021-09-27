@@ -25,6 +25,7 @@ const std::string YEAR_RELISE_STRING = "Год релиза";
 const std::string MARK_STRING = "Марка";
 const std::string MODEL_STRING = "Модель";
 const std::string COUNT_WAGONS_STRING = "Количчество вагонов";
+const std::string UNRECOGNIZED_STRINGS_STRING = "Нераспознаныне строки:";
 
 //kyes fields for towns
 const std::string TOWN_NAME_STRING = "Название города ";

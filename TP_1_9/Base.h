@@ -9,15 +9,20 @@
 
 class Base
 {
+private:
+	std::string name;
+protected:
+	MyArray<std::string> unrecognizedStrings;
 
 public:
-	Base() { Logger::printBuilder("Base"); };
-	Base(const Base& base) { Logger::printCopyBuilder("Base"); };
+	Base(std::string _name = MY_NULL_STRING) : name(_name) { Logger::printBuilder("Base"); };
+	Base(const Base& base);
 	~Base() { Logger::printDeconstuctor("Base"); };
 
 	virtual void inputFromConsole() = 0;
 	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines) = 0;
-	virtual void print(std::ostream& out, std::string number) = 0;
+	virtual void print(std::ostream& out, std::string number);
+	virtual void printUnrecognizedStrings(std::ostream& out);
 	virtual void change() = 0;
 };
 

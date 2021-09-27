@@ -2,7 +2,7 @@
 
 Plane::Plane(std::string _type, std::string _name, double _volumeWeid, double _width,
 	double _lengt, double _height, MyArray<std::string> _towns)
-	: type(_type), name(_name), volumeWeid(_volumeWeid), width(_width),
+	:Base(PLANE_STRING), type(_type), name(_name), volumeWeid(_volumeWeid), width(_width),
 	lengt(_lengt), height(_height), towns(_towns) 
 	{ Logger::printBuilder("Plane"); }
 
@@ -24,8 +24,6 @@ void Plane::inputFromConsole() {
 
 void Plane::inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines) {
 
-	MyArray<std::string> unrecognizedStrings;
-
 	bool isInputType = false, isInputName = false, isInputTowns = false, isInputVolumeWeid = false, isInputWidth = false,
 		isInputLendt = false, isInputHeight = false;
 
@@ -40,7 +38,7 @@ void Plane::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 				inputField(tmpString, MAX_LENGT_STRING, lengt, isInputLendt, isInput);
 				inputField(tmpString, MAX_WIDTH_STRING, width, isInputWidth, isInput);
 				inputField(tmpString, MAX_HEIGHT_STRING, height, isInputHeight, isInput);
-				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, unrecognizedStrings, isInput);
+				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, isInput);
 			}
 			catch (int resultCode) {
 				if (resultCode == -1) {
@@ -63,17 +61,18 @@ void Plane::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 			if ((isInputType && isInputName && isInputVolumeWeid && isInputLendt && isInputWidth && isInputHeight && isInputTowns) ||
 				contains(tmpString, CAR_STRING) || contains(tmpString, TRAIN_STRING))
 				break;
-			if (!isInput)
+			if (!isInput) {
+				Logger::printWarning("Данные в строке " + std::to_string(countLines) + " не распознаны");
 				unrecognizedStrings.add(tmpString);
+			}
 		}
 		else
 			break;
 	}
-	//use unrecognizedStrings
 }
 
 void Plane::print(std::ostream& out, std::string number) {
-	out << PLANE_STRING << number << ":" << std::endl;
+	Base::print(out, number);
 	out << TYPE_STRING << " = " << type << std::endl;
 	out << NAME_STRING << " = " << name << std::endl;
 	out << VOLUME_WEID_STRING << " = " << volumeWeid << std::endl;
@@ -87,7 +86,7 @@ void Plane::print(std::ostream& out, std::string number) {
 	}
 	else
 		out << EMPTY_TOWN_LIST_STRING << std::endl;
-	
+	Base::printUnrecognizedStrings(out);
 	out << std::endl;
 }
 
@@ -105,10 +104,11 @@ void Plane::change() {
 		std::cout << "6. Изменить высоту груза" << std::endl;
 		std::cout << "7. Изменить список городов" << std::endl;
 		std::cout << "8. Вывести данные на экран" << std::endl;
+		std::cout << "9. Удалить нераспознаныне строки" << std::endl;
 		std::cout << "0. Сохранить изменения" << std::endl;
 		std::cout << "Выберете пункт меню: ";
 
-		int method = processingInput(0, 8);
+		int method = processingInput(0, 9);
 		switch (method)
 		{
 		case 1:
@@ -142,6 +142,9 @@ void Plane::change() {
 		case 8:
 			print(std::cout);
 			break;
+		case 9:
+			unrecognizedStrings.clear();
+			break;
 		case 0:
 			isExit = true;
 			break;
@@ -160,6 +163,7 @@ Plane& Plane::operator=(const Plane& plane)
 	lengt = plane.lengt;
 	height = plane.height;
 	towns = plane.towns;
+	unrecognizedStrings = plane.unrecognizedStrings;
 	return *this;
 }
 
@@ -174,7 +178,7 @@ void Plane::inputTownsFromConsole() {
 }
 
 void Plane::inputTownsFromFile(std::string& input, const std::string& nameField,
-	bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput) {
+	bool& isInputField, std::ifstream& file, int& countLines, bool& isInput) {
 	if (contains(input, nameField) && !isInputField) {
 		isInputField = true;
 		isInput = true;

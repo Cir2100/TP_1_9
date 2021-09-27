@@ -11,18 +11,18 @@ Train::Train(const Train& train)
 	{ Logger::printCopyBuilder("Train"); }
 
 void Train::print(std::ostream& out, std::string number) {
-	out << "Поезд" << number << ":" << std::endl;
-	out << "Наименование = " << name << std::endl;
-	out << "Объем груза = " << volumeWeid << std::endl;
-	out << "Год релиза = " << yearRelease << std::endl;
-	out << "Количчество вагонов = " << countWagons << std::endl;
+	out << TRAIN_STRING << number << ":" << std::endl;
+	out << NAME_STRING << " = " << name << std::endl;
+	out << VOLUME_WEID_STRING << " = " << volumeWeid << std::endl;
+	out << YEAR_RELISE_STRING << " = " << yearRelease << std::endl;
+	out << COUNT_WAGONS_STRING << " = " << countWagons << std::endl;
 	if (route.getSize() > 0) {
-		out << "Маршрут поезда:" << std::endl;
+		out << TOWN_LIST_STRING << std::endl;
 		for (int i = 0; i < route.getSize(); i++)
-			out << "Название города " << i + 1 << " = " << route[i] << std::endl;
+			out << TOWN_NAME_STRING << i + 1 << " = " << route[i] << std::endl;
 	}
 	else
-		out << "Маршрут не указан" << std::endl;
+		out << EMPTY_TOWN_LIST_STRING << std::endl;
 		
 	out << std::endl;
 }

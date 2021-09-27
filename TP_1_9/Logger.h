@@ -18,5 +18,6 @@ public:
 	static void printBuilder(std::string name);
 	static void printCopyBuilder(std::string name);
 	static void printDeconstuctor(std::string name);
+	static void printWarning(std::string message);
 
 };

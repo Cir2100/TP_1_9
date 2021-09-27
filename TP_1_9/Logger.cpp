@@ -21,11 +21,15 @@ void Logger::printDeconstuctor(std::string name) {
 	printToConsole(deconstructor_string + name);
 	SetColor(15, 0);
 }
+void Logger::printWarning(std::string message) {
+	SetColor(4, 0);
+	printToConsole(message);
+	SetColor(15, 0);
+}
+
 
 void Logger::printToConsole(std::string s) {
-	SetColor(8, 0);
 	std::cout << s << std::endl;
-	SetColor(15, 0);
 }
 
 void Logger::SetColor(int text, int background) {

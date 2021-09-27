@@ -9,20 +9,20 @@ Car::Car(const Car& car)
 	{ Logger::printCopyBuilder("Car"); }
 
 void Car::print(std::ostream& out, std::string number) {
-	out << "Автомобиль" << number << ":" << std::endl;
-	out << "Марка = " << mark << std::endl;
-	out << "Модель = " << model << std::endl;
-	out << "Год релиза = " << yearRelease << std::endl;
+	out << CAR_STRING << number << ":" << std::endl;
+	out << MARK_STRING << " = " << mark << std::endl;
+	out << MODEL_STRING << " = " << model << std::endl;
+	out << YEAR_RELISE_STRING << " = " << yearRelease << std::endl;
 	if (towns.getSize() > 0) {
-		out << "Список городов:" << std::endl;
+		out << TOWN_LIST_STRING << std::endl;
 		for (int i = 0; i < towns.getSize(); i++) {
-			out << "Название города " << i + 1 << " = " << towns[i].name << std::endl;
-			out << "  Время в пути для города " << i + 1 << " = " << towns[i].wayHours << std::endl;
-			out << "  Объем груза для города " << i + 1 << " = " << towns[i].volumeWeid << std::endl;
+			out << TOWN_NAME_STRING << i + 1 << " = " << towns[i].name << std::endl;
+			out << "  " << TOWN_WAY_HOURS_STRING << i + 1 << " = " << towns[i].wayHours << std::endl;
+			out << "  " << TOWN_VOLUME_WEID_STRING << i + 1 << " = " << towns[i].volumeWeid << std::endl;
 		}	
 	}
 	else
-		out << "Список городов не указан" << std::endl;
+		out << EMPTY_TOWN_LIST_STRING << std::endl;
 
 	out << std::endl;
 }

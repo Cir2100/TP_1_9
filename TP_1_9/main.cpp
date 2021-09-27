@@ -192,39 +192,6 @@ void startInput(Transporter& transporter) {
 	}
 }
 
-void inputFromFile(Transporter& transporter, ifstream& file) {
-	string tmpString;
-	int countLines = 0, countLinesPrevInput = 0;
-	bool isInput = false;
-	while (true) {
-		if (!isInput) {
-			if (getline(file, tmpString))
-				countLines++;
-			else
-				break;
-		}
-			
-		if (contains(tmpString, "Самолет")) {
-			countLinesPrevInput = countLines;
-			isInput = true;
-			Plane plane = inputPlaneFromFile(file, tmpString, countLinesPrevInput);
-			transporter.addObject(plane);
-		} else if (contains(tmpString, "Автомобиль")) {
-			countLinesPrevInput = countLines;
-			isInput = true;
-			Car car = inputCarFromFile(file, tmpString, countLinesPrevInput);
-			transporter.addObject(car);
-		} else if (contains(tmpString, "Поезд")) {
-			countLinesPrevInput = countLines;
-			isInput = true;
-			Train train = inputTrainFromFile(file, tmpString, countLinesPrevInput);
-			transporter.addObject(train);
-		}
-		else
-			isInput = false;
-	}
-}
-
 void inputFromConsole(Transporter& transporter) {
 	cout << "Введите количество самолетов: ";
 	int count  = processingInput(0, INT32_MAX);

@@ -12,20 +12,20 @@ Plane::Plane(const Plane& plane) :
 	{ Logger::printCopyBuilder("Plane"); }
 
 void Plane::print(std::ostream& out, std::string number) {
-	out << "Самолет" << number << ":" << std::endl;
-	out << "Тип = " << type << std::endl;
-	out << "Наименование = " << name << std::endl;
-	out << "Объем груза = " << volumeWeid << std::endl;
-	out << "Максимальная длина груза = " << lengt << std::endl;
-	out << "Максимальная ширина груза = "  << width << std::endl;
-	out << "Максимальная высота груза = "  << height << std::endl;
+	out << PLANE_STRING << number << ":" << std::endl;
+	out << TYPE_STRING << " = " << type << std::endl;
+	out << NAME_STRING << " = " << name << std::endl;
+	out << VOLUME_WEID_STRING << " = " << volumeWeid << std::endl;
+	out << MAX_LENGT_STRING << " = " << lengt << std::endl;
+	out << MAX_WIDTH_STRING << " = " << width << std::endl;
+	out << MAX_HEIGHT_STRING << " = " << height << std::endl;
 	if (towns.getSize() > 0) {
-		out << "Список городов:" << std::endl;
+		out << TOWN_LIST_STRING << std::endl;
 		for (int i = 0; i < towns.getSize(); i++)
-			out << "Название города " << i + 1 << " = " << towns[i] << std::endl;
+			out << TOWN_NAME_STRING << i + 1 << " = " << towns[i] << std::endl;
 	}
 	else
-		out << "Список городов не указан" << std::endl;
+		out << EMPTY_TOWN_LIST_STRING << std::endl;
 	
 	out << std::endl;
 }

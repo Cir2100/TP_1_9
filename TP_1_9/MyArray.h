@@ -33,8 +33,9 @@ MyArray<T>::MyArray(const MyArray<T>& myArray) {
 template <class T>
 T& MyArray<T>::operator[](int index)
 {
+	std::string err = "Index " + std::to_string(index) + " does not exist";
 	if (index < 0 || index >= size)
-		throw "Index " + std::to_string(index) + "does not exist";
+		throw err;
 	return data[index];
 }
 
@@ -65,8 +66,9 @@ void MyArray<T>::add(const T& obj)
 template <class T>
 void MyArray<T>::del(int index)
 {
+	std::string err = "Index " + std::to_string(index) + " does not exist";
 	if (index < 0 || index >= size)
-		throw "Index " + std::to_string(index) + "does not exist";
+		throw err;
 	if (size > 1) {
 		T* tmp = new T[size - 1];
 		int k = 0;

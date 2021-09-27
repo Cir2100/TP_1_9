@@ -20,6 +20,68 @@ void Transporter::deletePlane(int index) { planes.del(index); }
 void Transporter::deleteCar(int index) { cars.del(index); }
 void Transporter::deleteTrain(int index) { trains.del(index); }
 
+
+void Transporter::inputFromConsole() {
+	std::cout << "Введите количество самолетов: ";
+	int count = processingInput(0, INT32_MAX);
+	for (int i = 0; i < count; i++) {
+		Plane plane;
+		plane.inputFromConsole();
+		addObject(plane);
+	}
+
+	std::cout << "Введите количество автомобилей: ";
+	count = processingInput(0, INT32_MAX);
+	for (int i = 0; i < count; i++) {
+		Car car;
+		car.inputFromConsole();
+		addObject(car);
+	}
+
+	std::cout << "Введите количество поездов: ";
+	count = processingInput(0, INT32_MAX);
+	for (int i = 0; i < count; i++) {
+		Train train;
+		train.inputFromConsole();
+		addObject(train);
+	}
+}
+
+void Transporter::inputFromFile(std::ifstream& file) {
+	std::string tmpString;
+	int countLines = 0;
+	bool isInput = false;
+	while (true) {
+		if (!isInput) {
+			if (std::getline(file, tmpString))
+				countLines++;
+			else
+				break;
+		}
+
+		if (contains(tmpString, PLANE_STRING)) {
+			isInput = true;
+			Plane plane;
+			plane.inputFromFile(file, tmpString, countLines);
+			addObject(plane);
+		}
+		else if (contains(tmpString, CAR_STRING)) {
+			isInput = true;
+			Car car;
+			car.inputFromFile(file, tmpString, countLines);
+			addObject(car);
+		}
+		else if (contains(tmpString, TRAIN_STRING)) {
+			isInput = true;
+			Train train;
+			train.inputFromFile(file, tmpString, countLines);
+			addObject(train);
+		}
+		else
+			isInput = false;
+	}
+}
+
 void Transporter::print(std::ostream& out) {
 
 	if (planes.getSize() > 0 || cars.getSize() > 0 || trains.getSize() > 0) {

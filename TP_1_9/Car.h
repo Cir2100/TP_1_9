@@ -11,13 +11,19 @@ private:
 	std::string mark, model;
 	MyArray<CarsTown> towns;
 
+	void inputTownsFromConsole();
+	void inputTownsFromFile(std::string& input, const std::string& nameField,
+		bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
 public:
 	Car(std::string _mark = MY_NULL_STRING, std::string _model = MY_NULL_STRING, 
 		int _yearRelease = 0.0, MyArray<CarsTown> _towns = MyArray<CarsTown>());
 	Car(const Car& car);
 	~Car() { Logger::printDeconstuctor("Car"); };
 
+	virtual void inputFromConsole();
+	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
 	virtual void print(std::ostream& out, std::string number = "");
+	virtual void change();
 	Car& operator=(const Car& car);
 
 	std::string getMark() { return mark; }

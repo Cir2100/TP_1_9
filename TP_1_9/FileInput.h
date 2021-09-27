@@ -1,19 +1,27 @@
 #pragma once
-#include "Transporter.h"
+#include "MyArray.h"
+#include "Strings.h"
+#include "Logger.h"
 #include <fstream>
 #include <string>
 
-void inputFromFile(Transporter& transporter, std::ifstream& file);
-Plane inputPlaneFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
-Car inputCarFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
-Train inputTrainFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
+template <typename T>
+void inputField(std::string& input, const std::string& nameField, T& field, bool& isInputField, bool& isInput);
 void checkInput(const std::string& input, std::string& field);
 void checkInput(const std::string& input, int& field);
 void checkInput(const std::string& input, double& field);
 bool contains(const std::string& str, const std::string& substr);
+
 template <typename T>
-void inputField(std::string& input, const std::string& nameField, T& field, bool& isInputField, bool& isInput);
-void inputTowns(std::string& input, const std::string& nameField, MyArray<std::string>& towns, 
-	bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
-void inputTowns(std::string& input, const std::string& nameField, MyArray<CarsTown>& towns, 
-	bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
+void inputField(std::string& input, const std::string& nameField, T& field, bool& isInputField, bool& isInput) {
+	if (contains(input, nameField)) {
+		if (!isInputField) {
+			input = input.substr(input.find_last_of("=") + 2);
+			checkInput(input, field);
+			isInputField = true;
+			isInput = true;
+		}
+		else
+			throw - 1;
+	}
+}

@@ -11,6 +11,67 @@ Plane::Plane(const Plane& plane) :
 	lengt(plane.lengt), height(plane.height), towns(plane.towns)
 	{ Logger::printCopyBuilder("Plane"); }
 
+void Plane::inputFromConsole() {
+	std::cout << "Введите данные о самолете: " << std::endl;
+	inputData("Введите тип: ", type);
+	inputData("Введите наименование: ", name);
+	inputData("Введите объем груза: ", volumeWeid, 0.0, double(INT32_MAX));
+	inputData("Введите длину груза: ", lengt, 0.0, double(INT32_MAX));
+	inputData("Введите ширину груза: ", width, 0.0, double(INT32_MAX));
+	inputData("Введите высоту груза: ", height, 0.0, double(INT32_MAX));
+	inputTownsFromConsole();
+}
+
+void Plane::inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines) {
+
+	MyArray<std::string> unrecognizedStrings;
+
+	bool isInputType = false, isInputName = false, isInputTowns = false, isInputVolumeWeid = false, isInputWidth = false,
+		isInputLendt = false, isInputHeight = false;
+
+	while (true) {
+		if (getline(file, tmpString)) {
+			countLines++;
+			bool isInput = false;
+			try {
+				inputField(tmpString, TYPE_STRING, type, isInputType, isInput);
+				inputField(tmpString, NAME_STRING, name, isInputName, isInput);
+				inputField(tmpString, VOLUME_WEID_STRING, volumeWeid, isInputVolumeWeid, isInput);
+				inputField(tmpString, MAX_LENGT_STRING, lengt, isInputLendt, isInput);
+				inputField(tmpString, MAX_WIDTH_STRING, width, isInputWidth, isInput);
+				inputField(tmpString, MAX_HEIGHT_STRING, height, isInputHeight, isInput);
+				inputTownsFromFile(tmpString, TOWN_LIST_STRING, isInputTowns, file, countLines, unrecognizedStrings, isInput);
+			}
+			catch (int resultCode) {
+				if (resultCode == -1) {
+					int countLinesStart = countLines;
+					while (true) {
+						if (getline(file, tmpString)) {
+							countLines++;
+							if (contains(tmpString, CAR_STRING) || contains(tmpString, TRAIN_STRING))
+								break;
+						}
+						else
+							break;
+					}
+					Logger::printWarning("Со строки " + std::to_string(countLinesStart) + " до строки " + std::to_string(countLines)
+						+ " данные не могут быть считаны");
+					break;
+				}
+			}
+
+			if ((isInputType && isInputName && isInputVolumeWeid && isInputLendt && isInputWidth && isInputHeight && isInputTowns) ||
+				contains(tmpString, CAR_STRING) || contains(tmpString, TRAIN_STRING))
+				break;
+			if (!isInput)
+				unrecognizedStrings.add(tmpString);
+		}
+		else
+			break;
+	}
+	//use unrecognizedStrings
+}
+
 void Plane::print(std::ostream& out, std::string number) {
 	out << PLANE_STRING << number << ":" << std::endl;
 	out << TYPE_STRING << " = " << type << std::endl;
@@ -30,6 +91,64 @@ void Plane::print(std::ostream& out, std::string number) {
 	out << std::endl;
 }
 
+void Plane::change() {
+	std::string tmpString = "";
+	double tmpDouble = 0.0;
+	bool isExit = false;
+	while (!isExit) {
+
+		std::cout << "1. Изменить тип" << std::endl;
+		std::cout << "2. Изменить наименование" << std::endl;
+		std::cout << "3. Изменить объем перевозимого груза" << std::endl;
+		std::cout << "4. Изменить длину груза" << std::endl;
+		std::cout << "5. Изменить ширину груза" << std::endl;
+		std::cout << "6. Изменить высоту груза" << std::endl;
+		std::cout << "7. Изменить список городов" << std::endl;
+		std::cout << "8. Вывести данные на экран" << std::endl;
+		std::cout << "0. Сохранить изменения" << std::endl;
+		std::cout << "Выберете пункт меню: ";
+
+		int method = processingInput(0, 8);
+		switch (method)
+		{
+		case 1:
+			inputData("Введите тип: ", tmpString);
+			setType(tmpString);
+			break;
+		case 2:
+			inputData("Введите наименование: ", tmpString);
+			setName(tmpString);
+			break;
+		case 3:
+			inputData("Введите объем перевозимого груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			setVolumeWeid(tmpDouble);
+			break;
+		case 4:
+			inputData("Введите длину груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			setLengt(tmpDouble);
+			break;
+		case 5:
+			inputData("Введите ширину груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			setWidth(tmpDouble);
+			break;
+		case 6:
+			inputData("Введите высоту груза: ", tmpDouble, 0.0, double(INT32_MAX));
+			setHeight(tmpDouble);
+			break;
+		case 7:
+			towns.clear();
+			inputTownsFromConsole();
+			break;
+		case 8:
+			print(std::cout);
+			break;
+		case 0:
+			isExit = true;
+			break;
+		}
+	}
+}
+
 Plane& Plane::operator=(const Plane& plane)
 {
 	if (this == &plane)
@@ -42,4 +161,39 @@ Plane& Plane::operator=(const Plane& plane)
 	height = plane.height;
 	towns = plane.towns;
 	return *this;
+}
+
+void Plane::inputTownsFromConsole() {
+	int countTowns;
+	inputData("Введите количество городов в маршруте: ", countTowns, 0, INT32_MAX);
+	for (int i = 0; i < countTowns; i++) {
+		std::string townName;
+		inputData("Введите название города " + std::to_string(i + 1) + ": ", townName);
+		towns.add(townName);
+	}
+}
+
+void Plane::inputTownsFromFile(std::string& input, const std::string& nameField,
+	bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput) {
+	if (contains(input, nameField) && !isInputField) {
+		isInputField = true;
+		isInput = true;
+		while (true) {
+			if (getline(file, input)) {
+				countLines++;
+				if (!contains(input, TOWN_NAME_STRING))
+					break;
+				else {
+					bool tmp = false;
+					inputField(input, TOWN_NAME_STRING, input, tmp, tmp);
+					if (!tmp)
+						unrecognizedStrings.add(input);
+					else
+						towns.add(input);
+				}
+			}
+			else
+				break;
+		}
+	}
 }

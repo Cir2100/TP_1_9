@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CarsTown.cpp" />
     <ClCompile Include="FileInput.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />

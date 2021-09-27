@@ -8,6 +8,10 @@ private:
 	std::string type, name;
 	MyArray<std::string> towns;
 	double volumeWeid, width, lengt, height;
+
+	void inputTownsFromConsole();
+	void inputTownsFromFile(std::string& input, const std::string& nameField,
+		bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
 public:
 
 	Plane(std::string _type = MY_NULL_STRING, std::string _name = MY_NULL_STRING, double _volumeWeid = 0.0, double _width = 0.0,
@@ -15,7 +19,10 @@ public:
 	Plane(const Plane& plane);
 	~Plane() { Logger::printDeconstuctor("Plane"); }
 
+	virtual void inputFromConsole();
+	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
 	virtual void print(std::ostream& out, std::string number = "");
+	virtual void change();
 	Plane& operator=(const Plane& plane);
 
 

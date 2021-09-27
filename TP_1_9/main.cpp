@@ -13,8 +13,6 @@ void addObject(Transporter& transporter);
 void changeObject(Transporter& transporter);
 void deleteObject(Transporter& transporter);
 void printTransporter(Transporter& transporter);
-void inputFromFile(Transporter& transporter, ifstream& file);
-void inputFromConsole(Transporter& transporter);
 
 int main() {
 	SetConsoleCP(1251);
@@ -66,15 +64,18 @@ void addObject(Transporter& transporter) {
 	cout << "Выберете объкт для добавления: " << endl;
 	int method = chouseObject();
 	if (method == 1) {
-		Plane plane = inputPlane();
+		Plane plane;
+		plane.inputFromConsole();
 		transporter.addObject(plane);
 	}
 	else if (method == 2) {
-		Car car = inputCar();
+		Car car;
+		car.inputFromConsole();
 		transporter.addObject(car);
 	}
 	else if (method == 3) {
-		Train train = inputTrain();
+		Train train;
+		train.inputFromConsole();
 		transporter.addObject(train);
 	}
 }
@@ -91,7 +92,7 @@ void changeObject(Transporter& transporter) {
 			cout << "Введите номер самолета для изменения: ";
 			int index = processingInput(1, transporter.getCountPlanes()) - 1;
 			Plane plane = transporter.getPlanes()[index];
-			changePlane(plane);
+			plane.change();
 			transporter.changeObject(plane, index);
 		}
 		else {
@@ -104,7 +105,7 @@ void changeObject(Transporter& transporter) {
 			cout << "Введите номер автомобиля для изменения: ";
 			int index = processingInput(1, transporter.getCountCars()) - 1;
 			Car car = transporter.getCars()[index];
-			changeCar(car);
+			car.change();
 			transporter.changeObject(car, index);
 		}
 		else {
@@ -117,7 +118,7 @@ void changeObject(Transporter& transporter) {
 			cout << "Введите номер поезда для изменения: ";
 			int index = processingInput(1, transporter.getCountTrains()) - 1;
 			Train train = transporter.getTrains()[index];
-			changeTrain(train);
+			train.change();
 			transporter.changeObject(train, index);
 		}
 		else {
@@ -185,33 +186,10 @@ void startInput(Transporter& transporter) {
 	if (method == 1) {
 		ifstream file;
 		if (processInputNameOfInputFile(file))
-			inputFromFile(transporter, file);
+			transporter.inputFromFile(file);
 	}
 	else if (method == 2) {
-		inputFromConsole(transporter);
-	}
-}
-
-void inputFromConsole(Transporter& transporter) {
-	cout << "Введите количество самолетов: ";
-	int count  = processingInput(0, INT32_MAX);
-	for (int i = 0; i < count; i++) {
-		Plane plane = inputPlane();
-		transporter.addObject(plane);
-	}
-
-	cout << "Введите количество автомобилей: ";
-	count = processingInput(0, INT32_MAX);
-	for (int i = 0; i < count; i++) {
-		Car car = inputCar();
-		transporter.addObject(car);
-	}
-
-	cout << "Введите количество поездов: ";
-	count = processingInput(0, INT32_MAX);
-	for (int i = 0; i < count; i++) {
-		Train train = inputTrain();
-		transporter.addObject(train);
+		transporter.inputFromConsole();
 	}
 }
 

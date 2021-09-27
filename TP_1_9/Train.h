@@ -7,14 +7,21 @@ private:
 	int yearRelease, countWagons;
 	double volumeWeid;
 	std::string name;
-	MyArray<std::string> route;
+	MyArray<std::string> towns;
+
+	void inputTownsFromConsole();
+	void inputTownsFromFile(std::string& input, const std::string& nameField,
+		bool& isInputField, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings, bool& isInput);
 public:
 	Train(std::string _name = MY_NULL_STRING, double _volumeWeid = 0.0, int _yearRelease = 0, int _countWagons = 0,
-		MyArray<std::string> route = MyArray<std::string>());
+		MyArray<std::string> _towns = MyArray<std::string>());
 	Train(const Train& train);
 	~Train() { Logger::printDeconstuctor("Train"); }
 
+	virtual void inputFromConsole();
+	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
 	virtual void print(std::ostream& out, std::string number = "");
+	virtual void change();
 	Train& operator=(const Train& train);
 
 	int getYearRelease() { return yearRelease; }
@@ -29,7 +36,7 @@ public:
 	double getVolumeWeid() { return volumeWeid; }
 	void setVolumeWeid(double _volumeWeid) { volumeWeid = _volumeWeid; }
 
-	MyArray<std::string> getRoute() { return route; }
-	void setRoute(MyArray<std::string> _route) { route = _route; }
+	MyArray<std::string> getRoute() { return towns; }
+	void setRoute(MyArray<std::string> _route) { towns = _route; }
 };
 

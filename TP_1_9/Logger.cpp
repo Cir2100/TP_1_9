@@ -4,22 +4,22 @@ std::string Logger::builder_string = PRINT_BUILDER_STRING;
 std::string Logger::copy_builder_string = PRINT_COPY_BUILDER_STRING;
 std::string Logger::deconstructor_string = PRINT_DECONSTRUCTOR_STRING;
 
-void Logger::printBuilder(std::string name) {
+void Logger::printMessage(std::string message) {
 	SetColor(8, 0);
-	printToConsole(builder_string + name);
+	printToConsole(message);
 	SetColor(15, 0);
+}
+
+void Logger::printBuilder(std::string name) {
+	printMessage(builder_string + name);
 }
 
 void Logger::printCopyBuilder(std::string name) {
-	SetColor(8, 0);
-	printToConsole(copy_builder_string + name);
-	SetColor(15, 0);
+	printMessage(copy_builder_string + name);
 }
 
 void Logger::printDeconstuctor(std::string name) {
-	SetColor(8, 0);
-	printToConsole(deconstructor_string + name);
-	SetColor(15, 0);
+	printMessage(deconstructor_string + name);
 }
 void Logger::printWarning(std::string message) {
 	SetColor(4, 0);

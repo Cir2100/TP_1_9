@@ -11,10 +11,11 @@ private:
 public:
 	MyArray() : size(0), data(NULL) { /*printBuilder("MyArray");*/ }
 	MyArray(const MyArray<T>& myArray);
-	~MyArray() { delete[] data; size = 0; /*printDeconstuctor("MyArray");*/ }
+	~MyArray() { clear(); /*printDeconstuctor("MyArray");*/ }
 
 	void add(const T& obj);
 	void del(int index);
+	void clear();
 	const int getSize() { return size; }
 	T& operator[](int);
 	MyArray<T>& operator=(const MyArray<T>& myArray);
@@ -82,4 +83,10 @@ void MyArray<T>::del(int index)
 		size--;
 		data = new T[0];
 	}
+}
+
+template <class T>
+void MyArray<T>::clear() {
+	delete[] data; 
+	size = 0;
 }

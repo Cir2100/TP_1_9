@@ -30,6 +30,8 @@ public:
 	void deleteCar(int index);
 	void deleteTrain(int index);
 
+	void inputFromConsole();
+	void inputFromFile(std::ifstream& file);
 	void print(std::ostream& out);
 	void printPlanes(std::ostream& out);
 	void printCars(std::ostream& out);

@@ -21,7 +21,7 @@ public:
 
 	virtual void inputFromConsole();
 	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
-	virtual void print(std::ostream& out, std::string number = "");
+	virtual void print(std::ostream& out, std::string number = "", std::string splitter = " ");
 	virtual void change();
 	Plane& operator=(const Plane& plane);
 

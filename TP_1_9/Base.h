@@ -21,7 +21,7 @@ public:
 
 	virtual void inputFromConsole() = 0;
 	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines) = 0;
-	virtual void print(std::ostream& out, std::string number);
+	virtual void print(std::ostream& out, std::string number, std::string splitter = " ");
 	virtual void printUnrecognizedStrings(std::ostream& out);
 	virtual void change() = 0;
 };

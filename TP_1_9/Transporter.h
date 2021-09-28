@@ -32,10 +32,10 @@ public:
 
 	void inputFromConsole();
 	void inputFromFile(std::ifstream& file);
-	void print(std::ostream& out);
-	void printPlanes(std::ostream& out);
-	void printCars(std::ostream& out);
-	void printTrains(std::ostream& out);
+	void print(std::ostream& out, std::string type = MY_NULL_STRING);
+	void printPlanes(std::ostream& out, std::string splitter = " ");
+	void printCars(std::ostream& out, std::string splitter = " ");
+	void printTrains(std::ostream& out, std::string splitter = " ");
 	Transporter& operator=(const Transporter& transporter);
 
 	MyArray<Plane> getPlanes() { return planes; }

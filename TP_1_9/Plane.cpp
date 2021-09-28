@@ -71,18 +71,18 @@ void Plane::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 	}
 }
 
-void Plane::print(std::ostream& out, std::string number) {
+void Plane::print(std::ostream& out, std::string number, std::string splitter) {
 	Base::print(out, number);
-	out << TYPE_STRING << " = " << type << std::endl;
-	out << NAME_STRING << " = " << name << std::endl;
-	out << VOLUME_WEID_STRING << " = " << volumeWeid << std::endl;
-	out << MAX_LENGT_STRING << " = " << lengt << std::endl;
-	out << MAX_WIDTH_STRING << " = " << width << std::endl;
-	out << MAX_HEIGHT_STRING << " = " << height << std::endl;
+	out << TYPE_STRING << " =" << splitter << type << std::endl;
+	out << NAME_STRING << " =" << splitter << name << std::endl;
+	out << VOLUME_WEID_STRING << " =" << splitter << volumeWeid << std::endl;
+	out << MAX_LENGT_STRING << " =" << splitter << lengt << std::endl;
+	out << MAX_WIDTH_STRING << " =" << splitter << width << std::endl;
+	out << MAX_HEIGHT_STRING << " =" << splitter << height << std::endl;
 	if (towns.getSize() > 0) {
 		out << TOWN_LIST_STRING << std::endl;
 		for (int i = 0; i < towns.getSize(); i++)
-			out << TOWN_NAME_STRING << i + 1 << " = " << towns[i] << std::endl;
+			out << TOWN_NAME_STRING << i + 1 << " =" << splitter << towns[i] << std::endl;
 	}
 	else
 		out << EMPTY_TOWN_LIST_STRING << std::endl;

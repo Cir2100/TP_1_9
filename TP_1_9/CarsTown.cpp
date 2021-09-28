@@ -49,8 +49,8 @@ void CarsTown::inputFromFile(std::string& input, std::ifstream& file, int& count
 	}
 }
 
-void CarsTown::print(std::ostream& out, std::string number) {
-	out << TOWN_NAME_STRING << number << " = " << name << std::endl;
-	out << "  " << TOWN_WAY_HOURS_STRING << number << " = " << wayHours << std::endl;
-	out << "  " << TOWN_VOLUME_WEID_STRING << number << " = " << volumeWeid << std::endl;
+void CarsTown::print(std::ostream& out, std::string number, std::string splitter) {
+	out << TOWN_NAME_STRING << " =" << splitter << number   << std::endl;
+	out << "  " << TOWN_WAY_HOURS_STRING << " =" << splitter << wayHours << std::endl;
+	out << "  " << TOWN_VOLUME_WEID_STRING << " =" << splitter << volumeWeid << std::endl;
 }

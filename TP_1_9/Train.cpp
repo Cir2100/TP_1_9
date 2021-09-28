@@ -70,16 +70,16 @@ void Train::inputFromFile(std::ifstream& file, std::string& tmpString, int& coun
 	
 }
 
-void Train::print(std::ostream& out, std::string number) {
+void Train::print(std::ostream& out, std::string number, std::string splitter) {
 	Base::print(out, number);
-	out << NAME_STRING << " = " << name << std::endl;
-	out << VOLUME_WEID_STRING << " = " << volumeWeid << std::endl;
-	out << YEAR_RELISE_STRING << " = " << yearRelease << std::endl;
-	out << COUNT_WAGONS_STRING << " = " << countWagons << std::endl;
+	out << NAME_STRING << " =" << splitter << name << std::endl;
+	out << VOLUME_WEID_STRING << " =" << splitter << volumeWeid << std::endl;
+	out << YEAR_RELISE_STRING << " =" << splitter << yearRelease << std::endl;
+	out << COUNT_WAGONS_STRING << " =" << splitter << countWagons << std::endl;
 	if (towns.getSize() > 0) {
 		out << TOWN_LIST_STRING << std::endl;
 		for (int i = 0; i < towns.getSize(); i++)
-			out << TOWN_NAME_STRING << i + 1 << " = " << towns[i] << std::endl;
+			out << TOWN_NAME_STRING << i + 1 << " =" << splitter << towns[i] << std::endl;
 	}
 	else
 		out << EMPTY_TOWN_LIST_STRING << std::endl;

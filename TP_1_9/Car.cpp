@@ -62,15 +62,15 @@ void Car::inputFromFile(std::ifstream& file, std::string& tmpString, int& countL
 	
 }
 
-void Car::print(std::ostream& out, std::string number) {
+void Car::print(std::ostream& out, std::string number, std::string splitter) {
 	Base::print(out, number);
-	out << MARK_STRING << " = " << mark << std::endl;
-	out << MODEL_STRING << " = " << model << std::endl;
-	out << YEAR_RELISE_STRING << " = " << yearRelease << std::endl;
+	out << MARK_STRING << " =" << splitter << mark << std::endl;
+	out << MODEL_STRING << " =" << splitter << model << std::endl;
+	out << YEAR_RELISE_STRING << " =" << splitter << yearRelease << std::endl;
 	if (towns.getSize() > 0) {
 		out << TOWN_LIST_STRING << std::endl;
 		for (int i = 0; i < towns.getSize(); i++)
-			towns[i].print(out, std::to_string(i + 1));
+			towns[i].print(out, std::to_string(i + 1), splitter);
 	}
 	else
 		out << EMPTY_TOWN_LIST_STRING << std::endl;

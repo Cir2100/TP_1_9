@@ -82,31 +82,33 @@ void Transporter::inputFromFile(std::ifstream& file) {
 	}
 }
 
-void Transporter::print(std::ostream& out) {
-
+void Transporter::print(std::ostream& out, std::string type) {
+	std::string splitter = " ";
+	if (type == ".csv")
+		splitter = ";";
 	if (planes.getSize() > 0 || cars.getSize() > 0 || trains.getSize() > 0) {
 		out << "Ñïèñîê îáúåêòîâ:" << std::endl;
-		printPlanes(out);
-		printCars(out);
-		printTrains(out);
+		printPlanes(out, splitter);
+		printCars(out, splitter);
+		printTrains(out, splitter);
 	}
 	else
 		out << "Ó ãğóçîïåğåâîç÷èêà íåò îáúåêòîâ" << std::endl;
 }
 
-void Transporter::printPlanes(std::ostream& out) {
+void Transporter::printPlanes(std::ostream& out, std::string splitter) {
 	for (int i = 0; i < planes.getSize(); i++)
-		planes[i].print(out, " " + std::to_string(i + 1));
+		planes[i].print(out, " " + std::to_string(i + 1), splitter);
 }
 
-void Transporter::printCars(std::ostream& out) {
+void Transporter::printCars(std::ostream& out, std::string splitter) {
 	for (int i = 0; i < cars.getSize(); i++)
-		cars[i].print(out, " " + std::to_string(i + 1));
+		cars[i].print(out, " " + std::to_string(i + 1), splitter);
 }
 
-void Transporter::printTrains(std::ostream& out) {
+void Transporter::printTrains(std::ostream& out, std::string splitter) {
 	for (int i = 0; i < trains.getSize(); i++)
-		trains[i].print(out, " " + std::to_string(i + 1));
+		trains[i].print(out, " " + std::to_string(i + 1), splitter);
 }
 
 Transporter& Transporter::operator=(const Transporter& transporter)

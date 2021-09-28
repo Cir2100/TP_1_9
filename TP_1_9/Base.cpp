@@ -3,7 +3,7 @@
 Base::Base(const Base& base) : name(base.name), unrecognizedStrings(base.unrecognizedStrings)
 	{ Logger::printCopyBuilder("Base"); };
 
-void Base::print(std::ostream& out, std::string number) {
+void Base::print(std::ostream& out, std::string number, std::string type) {
 	out << name << number << ":" << std::endl;
 }
 

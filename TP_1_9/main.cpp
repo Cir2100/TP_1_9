@@ -168,7 +168,7 @@ void printTransporter(Transporter& transporter) {
 		string filename;
 		if (processInputNameOfOutputFile(filename)) {
 			ofstream file(filename);
-			transporter.print(file);
+			transporter.print(file, filename.substr(filename.find_last_of(".")));
 			file.close();
 		}	
 	}

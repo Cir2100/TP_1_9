@@ -51,24 +51,31 @@ bool processInputNameOfInputFile(std::ifstream& file)
 }
 //получение имени выходного файлa
 //ввод 0 означает отказ от ввода данных из файла.
-std::string processInputNameOfOutputFile()
+bool processInputNameOfOutputFile(std::string& filename)
 {
 	//получение названия файла
-	std::string filename;
 	bool isCorrect;
 	std::cout << "Введите название файла (с расширением): ";
 	std::cin >> filename;
 	isCorrect = checkFilename(filename);
-	while (!isCorrect) {
+	while (!isCorrect && filename[0] != '0') {
+		std::cout << "Введите название повторно (с расширением): ";
 		std::cin >> filename;
 		isCorrect = checkFilename(filename);
 	}
-	return filename;
+	if (filename[0] != '0') {
+		Logger::printMessage("Файл успешно открыт");
+		return true;
+	}
+	else {
+		Logger::printMessage("Вы отказались от ввода данных из файла");
+		return false;
+	}
 }
 //проверка корректности имени файла
 bool checkFilename(std::string file)
 {
-	if (file.size() < 4) {
+	if (file.size() < 4 && file[0] != '0') {
 		Logger::printWarning("Имя файла слишком короткое.");
 		return false;
 	}
@@ -93,12 +100,13 @@ bool checkFilename(std::string file)
 		return false;
 	}
 	int i = file.size();
-	if ((file[i] == '\0') && (file[i - 1] == 't') && (file[i - 2] == 'x') && (file[i - 3] == 't') && (file[i - 4] == '.'))
+	if ((file[i] == '\0') && (file[i - 1] == 't') && (file[i - 2] == 'x') && (file[i - 3] == 't') && (file[i - 4] == '.') ||
+		(file[i] == '\0') && (file[i - 1] == 'v') && (file[i - 2] == 's') && (file[i - 3] == 'c') && (file[i - 4] == '.'))
 		return true;
 	else
 	{
 		if (file[i - 1] != '0')
-			Logger::printWarning("Файл должен иметь формат .txt");
+			Logger::printWarning("Файл должен иметь формат .txt или .csv");
 		return false;
 	}
 }

@@ -165,9 +165,12 @@ void printTransporter(Transporter& transporter) {
 	cout << "Выберете место вывода: " << endl;
 	int method = chouseStream();
 	if (method == 1) {
-		ofstream file(processInputNameOfOutputFile());
-		transporter.print(file);
-		file.close();
+		string filename;
+		if (processInputNameOfOutputFile(filename)) {
+			ofstream file(filename);
+			transporter.print(file);
+			file.close();
+		}	
 	}
 	else if (method == 2) {
 		transporter.print(cout);

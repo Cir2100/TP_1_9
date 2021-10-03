@@ -5,7 +5,7 @@
 #include "FileInput.h"
 #include "UsersInput.h"
 
-#include "Decoder.h" //refact
+#include "Decoder.h"
 #include "Coder.h"
 
 #include <fstream>
@@ -19,7 +19,7 @@ protected:
 	MyArray<std::string> unrecognizedStrings;
 
 public:
-	Base(std::string _name = MY_NULL_STRING) : name(_name) { Logger::printBuilder("Base"); };
+	Base(std::string _name = MY_NULL_STRING);
 	Base(const Base& base);
 	~Base() { Logger::printDeconstuctor("Base"); };
 
@@ -29,5 +29,6 @@ public:
 	virtual void printUnrecognizedStrings(std::ostream& out);
 	virtual void change() = 0;
 	virtual MyArray<std::string> toStringArray(std::string number);
+
 };
 

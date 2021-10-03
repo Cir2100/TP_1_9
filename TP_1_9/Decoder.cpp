@@ -19,23 +19,32 @@ Decoder::~Decoder() {
 void Decoder::decodeLZ77() {
 	outfile.open("tmp.txt");
 	char data[1];
-	int offset, lenght;
-	while (!codefile.eof()) {
-		offset = inputTwoByte();
+	int offset = 0, lenght;
+	while (true) {
 		lenght = inputTwoByte();
+		if (lenght > 0)
+			offset = inputTwoByte();
 		codefile.read(data, 1);
-		shiftBuffer(lenght, offset, data[0]);
-		if (data[0] == '^')
+		if (offset > buffer.size())
 			break;
+		shiftBuffer(lenght, offset, data[0]);
 	}
-	buffer.pop_back();
+
+	int unreadSimbols = 0;
+	while (!codefile.eof()) {
+		codefile.read(data, 1);
+		unreadSimbols++;
+	}
+	if (unreadSimbols > 0)
+		Logger::printWarning("Файл не может декодирован");
+
 	outfile << buffer;
 	outfile.close();
 	codefile.close();
 }
 
 void Decoder::shiftBuffer(int lenght, int offset, char simbol) {
-	int MAX_LEN = 65535;
+	int MAX_LEN = 1000;
 	if (lenght > 0) {
 		int start = buffer.size() - offset;
 		for (int i = 0; i < lenght; i++)

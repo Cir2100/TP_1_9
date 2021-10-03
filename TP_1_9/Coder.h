@@ -1,6 +1,6 @@
 #pragma once
 #include "Logger.h"
-#include "MyArray.h" // del?
+#include "MyArray.h"
 #include <fstream>
 #include <iostream>
 
@@ -20,7 +20,6 @@ public:
 	Coder(const Coder& coder);
 	~Coder();
 
-	//void encodeLZ77();
 	void encodeBlocLZ77(MyArray<std::string> strings);
 };
 

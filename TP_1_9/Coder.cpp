@@ -12,11 +12,7 @@ Coder::Coder(const Coder& coder)
 	Logger::printCopyBuilder("Coder");
 }
 
-Coder::~Coder() { //refact
-	printTwoByte(0);
-	printTwoByte(0);
-	char data = '^';
-	file.write((char*)&data, 1);
+Coder::~Coder() {
 	file.close();
 	Logger::printDeconstuctor("Coder"); 
 }
@@ -29,36 +25,34 @@ void Coder::encodeBlocLZ77(MyArray<std::string> strings) {
 			findMatching(strings[i], j, offset, lenght);
 			shiftBuffer(strings[i], j, lenght + 1);
 			j += lenght;
-			printTwoByte(offset);
 			printTwoByte(lenght);
+			if (lenght > 0)
+				printTwoByte(offset);
 			data = strings[i][j];
 			file.write((char*)&data, 1);
 		}
 }
-//refact
+
 void Coder::findMatching(const std::string& s, int index, int& offset, int& lenght) {
-	int pos = buffer.find(s[index]);
-	if (pos == std::string::npos) {
+	std::string substr;
+	substr.push_back(s[index++]);
+	lenght = 0;
+	while (buffer.find(substr) != std::string::npos) {
+		lenght++;
+		substr.push_back(s[index++]);
+	}
+	if (lenght == 0) {
 		offset = 0;
-		lenght = 0;
 	}
 	else {
-		offset = buffer.size() - pos;
-		lenght = 1;
-		pos++;
-		index++;
-		while (buffer[pos] == s[index]) {
-			lenght++;
-			pos++;
-			index++;
-			if (index == s.size())
-				break;
-		}
+		substr.pop_back();
+		offset = buffer.size() - buffer.find(substr);
+		lenght--;
 	}
 }
 
 void Coder::shiftBuffer(const std::string& s, int index, int lenght) {
-	int MAX_LEN = 65535;
+	int MAX_LEN = 1000;
 	if (buffer.size() > MAX_LEN - lenght) {
 		std::string tmp;
 		for (int i = buffer.size() - MAX_LEN + lenght; i < buffer.size(); i++)

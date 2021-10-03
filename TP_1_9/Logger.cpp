@@ -21,12 +21,12 @@ void Logger::printCopyBuilder(std::string name) {
 void Logger::printDeconstuctor(std::string name) {
 	printMessage(deconstructor_string + name);
 }
+
 void Logger::printWarning(std::string message) {
 	SetColor(4, 0);
 	printToConsole(message);
 	SetColor(15, 0);
 }
-
 
 void Logger::printToConsole(std::string s) {
 	std::cout << s << std::endl;

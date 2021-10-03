@@ -1,5 +1,8 @@
 #include "Base.h"
 
+Base::Base(std::string _name) : name(_name) 
+	{ Logger::printBuilder("Base"); };
+
 Base::Base(const Base& base) : name(base.name), unrecognizedStrings(base.unrecognizedStrings)
 	{ Logger::printCopyBuilder("Base"); };
 

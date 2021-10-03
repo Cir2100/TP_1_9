@@ -168,10 +168,12 @@
     <ClCompile Include="UsersInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="228KB.txt" />
     <Text Include="save.txt" />
     <Text Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="codefile.dat" />
     <None Include="save.csv" />
     <None Include="save.dat" />
   </ItemGroup>

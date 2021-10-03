@@ -87,6 +87,7 @@ void Transporter::inputFromCodeFile(std::string filename) {
 	Decoder decoder(filename);
 	decoder.decodeLZ77();
 	inputFromFile("tmp.txt");
+	remove("tmp.txt");
 }
 
 void Transporter::print(std::ostream& out, std::string type) {

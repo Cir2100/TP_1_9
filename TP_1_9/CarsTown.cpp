@@ -54,3 +54,11 @@ void CarsTown::print(std::ostream& out, std::string number, std::string splitter
 	out << "  " << TOWN_WAY_HOURS_STRING << " =" << splitter << wayHours << std::endl;
 	out << "  " << TOWN_VOLUME_WEID_STRING << " =" << splitter << volumeWeid << std::endl;
 }
+
+MyArray<std::string> CarsTown::toStringArray(std::string number) {
+	MyArray<std::string> strings;
+	strings.add(TOWN_NAME_STRING + " = " + number + "\n");
+	strings.add(TOWN_WAY_HOURS_STRING + " = " + std::to_string(wayHours) + "\n");
+	strings.add(TOWN_VOLUME_WEID_STRING + " = " + std::to_string(volumeWeid) + "\n");
+	return strings;
+}

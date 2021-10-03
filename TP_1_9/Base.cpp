@@ -14,3 +14,9 @@ void Base::printUnrecognizedStrings(std::ostream& out) {
 			out << unrecognizedStrings[i] << std::endl;
 	}
 }
+
+MyArray<std::string> Base::toStringArray(std::string number) {
+	MyArray<std::string> strings;
+	strings.add(name + number + ":\n");
+	return strings;
+}

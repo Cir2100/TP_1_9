@@ -48,6 +48,12 @@
     <ClInclude Include="CarsTown.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Coder.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoder.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transporter.cpp">
@@ -80,6 +86,12 @@
     <ClCompile Include="CarsTown.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Coder.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Decoder.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="save.txt">
@@ -91,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="save.csv">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="save.dat">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>

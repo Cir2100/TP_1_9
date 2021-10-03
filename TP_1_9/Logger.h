@@ -21,5 +21,4 @@ public:
 	static void printCopyBuilder(std::string name);
 	static void printDeconstuctor(std::string name);
 	
-
 };

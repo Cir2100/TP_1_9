@@ -14,6 +14,7 @@ public:
 	~MyArray() { clear(); /*printDeconstuctor("MyArray");*/ }
 
 	void add(const T& obj);
+	void add(MyArray<T>& _array);
 	void del(int index);
 	void clear();
 	const int getSize() { return size; }
@@ -62,6 +63,17 @@ void MyArray<T>::add(const T& obj)
 	for (int i = 0; i < size - 1; i++)
 		data[i] = tmp[i];
 	data[size - 1] = obj;
+}
+
+template <class T>
+void MyArray<T>::add(MyArray<T>& _array) {
+	T* tmp = data;
+	data = new T[size + _array.getSize()];
+	for (int i = 0; i < size; i++)
+		data[i] = tmp[i];
+	for (int i = 0; i < _array.getSize(); i++)
+		data[size + i] = _array.data[i];
+	size += _array.getSize();
 }
 
 template <class T>

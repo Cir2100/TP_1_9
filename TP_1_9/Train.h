@@ -22,6 +22,7 @@ public:
 	virtual void inputFromFile(std::ifstream& file, std::string& tmpString, int& countLines);
 	virtual void print(std::ostream& out, std::string number = "", std::string splitter = " ");
 	virtual void change();
+	virtual MyArray<std::string> toStringArray(std::string number);
 	Train& operator=(const Train& train);
 
 	int getYearRelease() { return yearRelease; }

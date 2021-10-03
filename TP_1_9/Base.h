@@ -4,6 +4,10 @@
 #include "Logger.h"
 #include "FileInput.h"
 #include "UsersInput.h"
+
+#include "Decoder.h" //refact
+#include "Coder.h"
+
 #include <fstream>
 #include <string>
 
@@ -24,5 +28,6 @@ public:
 	virtual void print(std::ostream& out, std::string number, std::string splitter = " ");
 	virtual void printUnrecognizedStrings(std::ostream& out);
 	virtual void change() = 0;
+	virtual MyArray<std::string> toStringArray(std::string number);
 };
 

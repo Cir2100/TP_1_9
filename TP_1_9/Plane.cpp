@@ -152,6 +152,24 @@ void Plane::change() {
 	}
 }
 
+MyArray<std::string> Plane::toStringArray(std::string number) {
+	MyArray<std::string> strings = Base::toStringArray(number);
+	strings.add(TYPE_STRING + " = " + type + "\n");
+	strings.add(NAME_STRING + " = " + name + "\n");
+	strings.add(VOLUME_WEID_STRING + " = " + std::to_string(volumeWeid) + "\n");
+	strings.add(MAX_LENGT_STRING + " = " + std::to_string(lengt) + "\n");
+	strings.add(MAX_WIDTH_STRING + " = " + std::to_string(width) + "\n");
+	strings.add(MAX_HEIGHT_STRING + " = " + std::to_string(height) + "\n");
+	if (towns.getSize() > 0) {
+		strings.add(TOWN_LIST_STRING + "\n");
+		for (int i = 0; i < towns.getSize(); i++)
+			strings.add(TOWN_NAME_STRING + std::to_string(i + 1) + " = " + towns[i] + "\n");
+	}
+	else
+		strings.add(EMPTY_TOWN_LIST_STRING + "\n");
+	return strings;
+}
+
 Plane& Plane::operator=(const Plane& plane)
 {
 	if (this == &plane)

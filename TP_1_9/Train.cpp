@@ -140,6 +140,22 @@ void Train::change() {
 	}
 }
 
+MyArray<std::string> Train::toStringArray(std::string number) {
+	MyArray<std::string> strings = Base::toStringArray(number);
+	strings.add(NAME_STRING + " = " + name + "\n");
+	strings.add(VOLUME_WEID_STRING + " = " + std::to_string(volumeWeid) + "\n");
+	strings.add(YEAR_RELISE_STRING + " = " + std::to_string(yearRelease) + "\n");
+	strings.add(COUNT_WAGONS_STRING + " = " + std::to_string(countWagons) + "\n");
+	if (towns.getSize() > 0) {
+		strings.add(TOWN_LIST_STRING + "\n");
+		for (int i = 0; i < towns.getSize(); i++)
+			strings.add(TOWN_NAME_STRING + std::to_string(i + 1) + " = " + towns[i] + "\n");
+	}
+	else
+		strings.add(EMPTY_TOWN_LIST_STRING + "\n");
+	return strings;
+}
+
 Train& Train::operator=(const Train& train)
 {
 	if (this == &train)

@@ -125,6 +125,24 @@ void Car::change() {
 	}
 }
 
+MyArray<std::string> Car::toStringArray(std::string number) {
+	MyArray<std::string> strings = Base::toStringArray(number);
+	strings.add(MARK_STRING + " = " + mark + "\n");
+	strings.add(MODEL_STRING + " = " + model + "\n");
+	strings.add(YEAR_RELISE_STRING + " = " + std::to_string(yearRelease) + "\n");
+	if (towns.getSize() > 0) {
+		strings.add(TOWN_LIST_STRING + "\n");
+		for (int i = 0; i < towns.getSize(); i++) {
+			MyArray<std::string> townStrings = towns[i].toStringArray(std::to_string(i + 1));
+			strings.add(townStrings);
+		}
+			
+	}
+	else
+		strings.add(EMPTY_TOWN_LIST_STRING + "\n");
+	return strings;
+}
+
 Car& Car::operator=(const Car& car)
 {
 	if (this == &car)

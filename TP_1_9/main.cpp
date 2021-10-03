@@ -25,7 +25,7 @@ int main() {
 	bool isExit = false;
 	while (!isExit) {
 		printMenu();
-		int method = processingInput(0, 5);
+		int method = processingInput(0, 4);
 		switch (method)
 		{
 		case 1:
@@ -38,8 +38,6 @@ int main() {
 			deleteObject(transporter);
 			break;
 		case 4:
-			break;
-		case 5:
 			printTransporter(transporter);
 			break;
 		case 0:
@@ -54,8 +52,7 @@ void printMenu() {
 	cout << "1. Добавить оъект" << endl;
 	cout << "2. Изменить объект" << endl;
 	cout << "3. Удалить объект" << endl;
-	cout << "4. Сохранить в файл" << endl;
-	cout << "5. Вывести данные" << endl;
+	cout << "4. Вывести данные" << endl;
 	cout << "0. Выход" << endl;
 	cout << "Выберете пункт меню: ";
 }
@@ -173,6 +170,11 @@ void printTransporter(Transporter& transporter) {
 		}	
 	}
 	else if (method == 2) {
+		string filename;
+		if (processInputNameOfOutputFile(filename))
+			transporter.codeToFile(filename);
+	}
+	else if (method == 3) {
 		transporter.print(cout);
 	}
 }
@@ -181,11 +183,16 @@ void startInput(Transporter& transporter) {
 	cout << "Откуда ввести данные: " << endl;
 	int method = chouseStream();
 	if (method == 1) {
-		ifstream file;
-		if (processInputNameOfInputFile(file))
-			transporter.inputFromFile(file);
+		string filename;
+		if (processInputNameOfInputFile(filename))
+			transporter.inputFromFile(filename);
 	}
 	else if (method == 2) {
+		string filename;
+		if (processInputNameOfInputFile(filename))
+			transporter.inputFromCodeFile(filename);
+	}
+	else if (method == 3) {
 		transporter.inputFromConsole();
 	}
 }

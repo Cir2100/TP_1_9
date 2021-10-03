@@ -3,9 +3,10 @@
 
 int chouseStream() {
 	std::cout << "1. Файл" << std::endl;
-	std::cout << "2. Консоль" << std::endl;
+	std::cout << "2. Сжатый файл" << std::endl;
+	std::cout << "3. Консоль" << std::endl;
 	std::cout << "0. Отмена" << std::endl;
-	return processingInput(0, 2);
+	return processingInput(0, 3);
 }
 
 int chouseObject() {
@@ -18,10 +19,10 @@ int chouseObject() {
 
 //получение имени входного файлa
 //ввод 0 означает отказ от ввода данных из файла.
-bool processInputNameOfInputFile(std::ifstream& file)
+bool processInputNameOfInputFile(std::string& filename)
 {
+	std::ifstream file;
 	//получение названия файла
-	std::string filename;
 	bool isCorrect;
 	std::cout << "Введите название файла (с расширением): ";
 	std::cin >> filename;
@@ -39,6 +40,7 @@ bool processInputNameOfInputFile(std::ifstream& file)
 		if (isCorrect)
 			file.open(filename);
 	}
+	file.close();
 	if (filename[0] != '0') {
 		Logger::printMessage("Файл успешно открыт");
 		return true;
@@ -101,12 +103,13 @@ bool checkFilename(std::string file)
 	}
 	int i = file.size();
 	if ((file[i] == '\0') && (file[i - 1] == 't') && (file[i - 2] == 'x') && (file[i - 3] == 't') && (file[i - 4] == '.') ||
-		(file[i] == '\0') && (file[i - 1] == 'v') && (file[i - 2] == 's') && (file[i - 3] == 'c') && (file[i - 4] == '.'))
+		(file[i] == '\0') && (file[i - 1] == 'v') && (file[i - 2] == 's') && (file[i - 3] == 'c') && (file[i - 4] == '.') ||
+		(file[i] == '\0') && (file[i - 1] == 't') && (file[i - 2] == 'a') && (file[i - 3] == 'd') && (file[i - 4] == '.'))
 		return true;
 	else
 	{
 		if (file[i - 1] != '0')
-			Logger::printWarning("Файл должен иметь формат .txt или .csv");
+			Logger::printWarning("Файл должен иметь формат .txt или .csv или .dat");
 		return false;
 	}
 }

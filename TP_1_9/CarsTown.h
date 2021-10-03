@@ -19,5 +19,6 @@ public:
 	virtual void inputFromFile(std::string& input, std::ifstream& file, int& countLines, MyArray<std::string>& unrecognizedStrings,
 		bool& stopInput, bool& isInputName, bool& isInputWayHours, bool& isInputVolumeWeid);
 	virtual void print(std::ostream& out, std::string number = "", std::string splitter = " ");
+	MyArray<std::string> toStringArray(std::string number);
 };
 

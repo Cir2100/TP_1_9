@@ -12,7 +12,7 @@ template <typename T>
 void inputData(std::string help, T& data, T minValue, T maxValue);
 int chouseStream();
 int chouseObject();
-bool processInputNameOfInputFile(std::ifstream& file);
+bool processInputNameOfInputFile(std::string& filename);
 bool processInputNameOfOutputFile(std::string& filename);
 bool checkFilename(std::string file);
 void inputData(std::string help, std::string& data);

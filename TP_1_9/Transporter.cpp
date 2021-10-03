@@ -47,18 +47,18 @@ void Transporter::inputFromConsole() {
 	}
 }
 
-void Transporter::inputFromFile(std::ifstream& file) {
+void Transporter::inputFromFile(std::string filename) {
+	std::ifstream file(filename);
 	std::string tmpString;
 	int countLines = 0;
 	bool isInput = false;
-	while (true) {
+	while (!file.eof()) {
 		if (!isInput) {
 			if (std::getline(file, tmpString))
 				countLines++;
 			else
-				break;
+				break;				
 		}
-
 		if (contains(tmpString, PLANE_STRING)) {
 			isInput = true;
 			Plane plane;
@@ -80,6 +80,13 @@ void Transporter::inputFromFile(std::ifstream& file) {
 		else
 			isInput = false;
 	}
+	file.close();
+}
+
+void Transporter::inputFromCodeFile(std::string filename) {
+	Decoder decoder(filename);
+	decoder.decodeLZ77();
+	inputFromFile("tmp.txt");
 }
 
 void Transporter::print(std::ostream& out, std::string type) {
@@ -94,6 +101,19 @@ void Transporter::print(std::ostream& out, std::string type) {
 	}
 	else
 		out << "У грузоперевозчика нет объектов" << std::endl;
+}
+
+void Transporter::codeToFile(std::string filename) {
+	Coder coder(filename);
+	for (int i = 0; i < planes.getSize(); i++) {
+		coder.encodeBlocLZ77(planes[i].toStringArray(std::to_string(i + 1)));
+	}
+	for (int i = 0; i < cars.getSize(); i++) {
+		coder.encodeBlocLZ77(cars[i].toStringArray(std::to_string(i + 1)));
+	}
+	for (int i = 0; i < trains.getSize(); i++) {
+		coder.encodeBlocLZ77(trains[i].toStringArray(std::to_string(i + 1)));
+	}
 }
 
 void Transporter::printPlanes(std::ostream& out, std::string splitter) {

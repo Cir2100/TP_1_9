@@ -31,8 +31,10 @@ public:
 	void deleteTrain(int index);
 
 	void inputFromConsole();
-	void inputFromFile(std::ifstream& file);
+	void inputFromFile(std::string filename);
+	void inputFromCodeFile(std::string filename);
 	void print(std::ostream& out, std::string type = MY_NULL_STRING);
+	void codeToFile(std::string filename);
 	void printPlanes(std::ostream& out, std::string splitter = " ");
 	void printCars(std::ostream& out, std::string splitter = " ");
 	void printTrains(std::ostream& out, std::string splitter = " ");

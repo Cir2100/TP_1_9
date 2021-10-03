@@ -103,8 +103,8 @@ void Plane::change() {
 		std::cout << "5. Изменить ширину груза" << std::endl;
 		std::cout << "6. Изменить высоту груза" << std::endl;
 		std::cout << "7. Изменить список городов" << std::endl;
-		std::cout << "8. Вывести данные на экран" << std::endl;
-		std::cout << "9. Удалить нераспознаныне строки" << std::endl;
+		std::cout << "8. Удалить нераспознаныне строки" << std::endl;
+		std::cout << "9. Вывести данные на экран" << std::endl;
 		std::cout << "0. Сохранить изменения" << std::endl;
 		std::cout << "Выберете пункт меню: ";
 
@@ -140,10 +140,10 @@ void Plane::change() {
 			inputTownsFromConsole();
 			break;
 		case 8:
-			print(std::cout);
+			unrecognizedStrings.clear();
 			break;
 		case 9:
-			unrecognizedStrings.clear();
+			print(std::cout);
 			break;
 		case 0:
 			isExit = true;

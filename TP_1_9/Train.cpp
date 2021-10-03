@@ -99,8 +99,8 @@ void Train::change() {
 		std::cout << "3. Изменить объем перевозимого груза" << std::endl;
 		std::cout << "4. Изменить количество вагонов" << std::endl;
 		std::cout << "5. Изменить маршрут" << std::endl;
-		std::cout << "6. Вывести данные на экран" << std::endl;
-		std::cout << "7. Удалить нераспознаныне строки" << std::endl;
+		std::cout << "6. Удалить нераспознаныне строки" << std::endl;
+		std::cout << "7. Вывести данные на экран" << std::endl;
 		std::cout << "0. Сохранить изменения" << std::endl;
 		std::cout << "Выберете пункт меню: ";
 
@@ -128,10 +128,10 @@ void Train::change() {
 			inputTownsFromConsole();
 			break;
 		case 6:
-			print(std::cout);
+			unrecognizedStrings.clear();
 			break;
 		case 7:
-			unrecognizedStrings.clear();
+			print(std::cout);
 			break;
 		case 0:
 			isExit = true;

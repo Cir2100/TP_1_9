@@ -88,8 +88,8 @@ void Car::change() {
 		std::cout << "2. Изменить марку" << std::endl;
 		std::cout << "3. Изменить год выпуска" << std::endl;
 		std::cout << "4. Изменить список городов" << std::endl;
-		std::cout << "5. Вывести данные на экран" << std::endl;
-		std::cout << "6. Удалить нераспознаныне строки" << std::endl;
+		std::cout << "5. Удалить нераспознаныне строки" << std::endl;
+		std::cout << "6. Вывести данные на экран" << std::endl;
 		std::cout << "0. Сохранить изменения" << std::endl;
 		std::cout << "Выберете пункт меню: ";
 
@@ -113,10 +113,10 @@ void Car::change() {
 			inputTownsFromConsole();
 			break;
 		case 5:
-			print(std::cout);
+			unrecognizedStrings.clear();
 			break;
 		case 6:
-			unrecognizedStrings.clear();
+			print(std::cout);
 			break;
 		case 0:
 			isExit = true;

@@ -117,4 +117,9 @@ bool checkFilename(std::string file)
 void inputData(std::string help, std::string& data) {
 	std::cout << help;
 	getline(std::cin, data);
+	while (data.size() < 1) {
+		Logger::printWarning("Строка не должна быть пустой.");
+		std::cout << "Введите повторно: ";
+		getline(std::cin, data);
+	}
 }

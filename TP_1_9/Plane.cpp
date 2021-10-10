@@ -7,7 +7,7 @@ Plane::Plane(std::string _type, std::string _name, double _volumeWeid, double _w
 	{ Logger::printBuilder("Plane"); }
 
 Plane::Plane(const Plane& plane) :
-	type(plane.type), name(plane.name), volumeWeid(plane.volumeWeid), width(plane.width),
+	Base(plane), type(plane.type), name(plane.name), volumeWeid(plane.volumeWeid), width(plane.width),
 	lengt(plane.lengt), height(plane.height), towns(plane.towns)
 	{ Logger::printCopyBuilder("Plane"); }
 
@@ -140,7 +140,12 @@ void Plane::change() {
 			inputTownsFromConsole();
 			break;
 		case 8:
-			unrecognizedStrings.clear();
+			if (unrecognizedStrings.getSize() > 0) {
+				unrecognizedStrings.clear();
+				Logger::printMessage("Ќераспознанные строки успешно удалены");
+			}
+			else
+				Logger::printMessage("Ќераспознанные строки уже пусты");
 			break;
 		case 9:
 			print(std::cout);

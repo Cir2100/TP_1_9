@@ -1,13 +1,13 @@
 #include "Base.h"
 
-Base::Base(std::string _name) : name(_name) 
+Base::Base(std::string _typeObj) : typeObj(_typeObj)
 	{ Logger::printBuilder("Base"); };
 
-Base::Base(const Base& base) : name(base.name), unrecognizedStrings(base.unrecognizedStrings)
+Base::Base(const Base& base) : typeObj(base.typeObj), unrecognizedStrings(base.unrecognizedStrings)
 	{ Logger::printCopyBuilder("Base"); };
 
 void Base::print(std::ostream& out, std::string number, std::string type) {
-	out << name << number << ":" << std::endl;
+	out << typeObj << number << ":" << std::endl;
 }
 
 void Base::printUnrecognizedStrings(std::ostream& out) {
@@ -20,6 +20,6 @@ void Base::printUnrecognizedStrings(std::ostream& out) {
 
 MyArray<std::string> Base::toStringArray(std::string number) {
 	MyArray<std::string> strings;
-	strings.add(name + number + ":\n");
+	strings.add(typeObj + number + ":\n");
 	return strings;
 }

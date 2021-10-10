@@ -75,6 +75,8 @@ void addObject(Transporter& transporter) {
 		train.inputFromConsole();
 		transporter.addObject(train);
 	}
+	if (method != 0)
+		Logger::printMessage("Объект успешно добавлен");
 }
 
 void changeObject(Transporter& transporter) {
@@ -102,7 +104,7 @@ void changeObject(Transporter& transporter) {
 			int index = processingInput(1, transporter.getCountCars()) - 1;
 			Car car = transporter.getCars()[index];
 			car.change();
-			transporter.changeObject(car, index);
+			transporter.getCars()[index].change();
 		}
 		else
 			Logger::printWarning("Список автомобилей пуст. Нечего изменять");
@@ -120,6 +122,8 @@ void changeObject(Transporter& transporter) {
 			Logger::printWarning("Список поездов пуст. Нечего изменять");
 		break;
 	}
+	if (method != 0)
+		Logger::printMessage("Объект успешно изменнен");
 }
 
 void deleteObject(Transporter& transporter) {
@@ -156,6 +160,8 @@ void deleteObject(Transporter& transporter) {
 			Logger::printWarning("Список поездов пуст. Нечего удалять");
 		break;
 	}
+	if (method != 0)
+		Logger::printMessage("Объект успешно удален");
 }
 
 void printTransporter(Transporter& transporter) {

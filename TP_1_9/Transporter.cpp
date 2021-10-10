@@ -81,6 +81,7 @@ void Transporter::inputFromFile(std::string filename) {
 			isInput = false;
 	}
 	file.close();
+	Logger::printMessage("Файл прочитан");
 }
 
 void Transporter::inputFromCodeFile(std::string filename) {
@@ -115,6 +116,7 @@ void Transporter::codeToFile(std::string filename) {
 	for (int i = 0; i < trains.getSize(); i++) {
 		coder.encodeBlocLZ77(trains[i].toStringArray(std::to_string(i + 1)));
 	}
+	Logger::printMessage("Заархивировано в файл " + filename);
 }
 
 void Transporter::printPlanes(std::ostream& out, std::string splitter) {

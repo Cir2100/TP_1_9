@@ -14,12 +14,12 @@
 class Base
 {
 private:
-	std::string name;
+	std::string typeObj;
 protected:
 	MyArray<std::string> unrecognizedStrings;
 
 public:
-	Base(std::string _name = MY_NULL_STRING);
+	Base(std::string _typeObj = MY_NULL_STRING);
 	Base(const Base& base);
 	~Base() { Logger::printDeconstuctor("Base"); };
 
@@ -29,6 +29,5 @@ public:
 	virtual void printUnrecognizedStrings(std::ostream& out);
 	virtual void change() = 0;
 	virtual MyArray<std::string> toStringArray(std::string number);
-
 };
 

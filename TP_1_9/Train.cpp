@@ -6,7 +6,7 @@ Train::Train(std::string _name, double _volumeWeid, int _yearRelease, int _count
 	{ Logger::printBuilder("Train"); }
 
 Train::Train(const Train& train)
-	: name(train.name), volumeWeid(train.volumeWeid), yearRelease(train.yearRelease),
+	: Base(train), name(train.name), volumeWeid(train.volumeWeid), yearRelease(train.yearRelease),
 	countWagons(train.countWagons), towns(train.towns)
 	{ Logger::printCopyBuilder("Train"); }
 
@@ -128,7 +128,12 @@ void Train::change() {
 			inputTownsFromConsole();
 			break;
 		case 6:
-			unrecognizedStrings.clear();
+			if (unrecognizedStrings.getSize() > 0) {
+				unrecognizedStrings.clear();
+				Logger::printMessage("Ќераспознанные строки успешно удалены");
+			}
+			else
+				Logger::printMessage("Ќераспознанные строки уже пусты");
 			break;
 		case 7:
 			print(std::cout);

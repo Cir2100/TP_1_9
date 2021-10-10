@@ -5,7 +5,7 @@ Car::Car(std::string _mark, std::string _model, int _yearRelease, MyArray<CarsTo
 	{ Logger::printBuilder("Car"); }
 
 Car::Car(const Car& car)
-	: mark(car.mark), model(car.model), yearRelease(car.yearRelease), towns(car.towns)
+	: Base(car), mark(car.mark), model(car.model), yearRelease(car.yearRelease), towns(car.towns)
 	{ Logger::printCopyBuilder("Car"); }
 
 void Car::inputFromConsole() {
@@ -113,7 +113,12 @@ void Car::change() {
 			inputTownsFromConsole();
 			break;
 		case 5:
-			unrecognizedStrings.clear();
+			if (unrecognizedStrings.getSize() > 0) {
+				unrecognizedStrings.clear();
+				Logger::printMessage("Ќераспознанные строки успешно удалены");
+			}
+			else
+				Logger::printMessage("Ќераспознанные строки уже пусты");
 			break;
 		case 6:
 			print(std::cout);

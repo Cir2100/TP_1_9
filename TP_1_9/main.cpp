@@ -93,6 +93,7 @@ void changeObject(Transporter& transporter) {
 			Plane plane = transporter.getPlanes()[index];
 			plane.change();
 			transporter.changeObject(plane, index);
+			Logger::printMessage("Объект успешно изменнен");
 		}
 		else
 			Logger::printWarning("Список самолетов пуст. Нечего изменять");
@@ -105,6 +106,7 @@ void changeObject(Transporter& transporter) {
 			Car car = transporter.getCars()[index];
 			car.change();
 			transporter.getCars()[index].change();
+			Logger::printMessage("Объект успешно изменнен");
 		}
 		else
 			Logger::printWarning("Список автомобилей пуст. Нечего изменять");
@@ -117,13 +119,12 @@ void changeObject(Transporter& transporter) {
 			Train train = transporter.getTrains()[index];
 			train.change();
 			transporter.changeObject(train, index);
+			Logger::printMessage("Объект успешно изменнен");
 		}
 		else
 			Logger::printWarning("Список поездов пуст. Нечего изменять");
 		break;
 	}
-	if (method != 0)
-		Logger::printMessage("Объект успешно изменнен");
 }
 
 void deleteObject(Transporter& transporter) {
@@ -137,6 +138,7 @@ void deleteObject(Transporter& transporter) {
 			transporter.printPlanes(cout);
 			cout << "Введите номер самолета для удаления: ";
 			transporter.deletePlane(processingInput(1, transporter.getCountPlanes()) - 1);
+			Logger::printMessage("Объект успешно удален");
 		}
 		else
 			Logger::printWarning("Список самолетов пуст. Нечего удалять");
@@ -146,6 +148,7 @@ void deleteObject(Transporter& transporter) {
 			transporter.printCars(cout);
 			cout << "Введите номер автомобиля для удаления: ";
 			transporter.deleteCar(processingInput(1, transporter.getCountCars()) - 1);
+			Logger::printMessage("Объект успешно удален");
 		}
 		else
 			Logger::printWarning("Список автомобилей пуст. Нечего удалять");
@@ -155,13 +158,12 @@ void deleteObject(Transporter& transporter) {
 			transporter.printTrains(cout);
 			cout << "Введите номер поезда для удаления: ";
 			transporter.deleteTrain(processingInput(1, transporter.getCountTrains()) - 1);
+			Logger::printMessage("Объект успешно удален");
 		}
 		else
 			Logger::printWarning("Список поездов пуст. Нечего удалять");
 		break;
 	}
-	if (method != 0)
-		Logger::printMessage("Объект успешно удален");
 }
 
 void printTransporter(Transporter& transporter) {

@@ -85,7 +85,7 @@ void MyArray<T>::del(int index)
 	if (size > 1) {
 		T* tmp = new T[size - 1];
 		int k = 0;
-		for (int i = 0; i < size - 1; i++)
+		for (int i = 0; i < size; i++)
 			if (i != index)
 				tmp[k++] = data[i];
 		size--;
